@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../services/user.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
@@ -10,39 +13,104 @@ export class LoginComponent implements OnInit {
   isSignDivVisible: boolean = false;
 
   loginForm!: FormGroup;
-  signUpObj = {
-    name: '',
-    email: '',
-    password: ''
-  };
+signUpObj = {
+  username: '',
+  email: '',
+  password: ''
+};
+
 
   email_validation_msg = '';
   password_validation_msg = '';
 
-  constructor(private fb: FormBuilder) {}
+constructor(private fb: FormBuilder, private userService: UserService, private router: Router) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
+     const token = localStorage.getItem('token');
+  if (token) {
+    this.userService.getCurrentUser().subscribe({
+      next: (user) => {
+        console.log('✅ Utilisateur connecté détecté:', user);
+      this.router.navigateByUrl('/');
+ // ou rediriger vers un dashboard
+      },
+      error: () => {
+        console.warn('⚠️ Token invalide ou expiré');
+        localStorage.removeItem('token');
+      }
+    });
+  }
   }
 
   togglePanel(): void {
     this.isSignDivVisible = !this.isSignDivVisible;
   }
 
-  onRegister(): void {
-    console.log('Register:', this.signUpObj);
-  }
+onRegister(): void {
+  this.userService.register(this.signUpObj).subscribe({
+    next: () => {
+      alert('Inscription réussie ! Vous êtes connecté.');
+      // facultatif : tu peux aussi te connecter automatiquement ici
+   const loginPayload = {
+  email: this.signUpObj.email,
+  password: this.signUpObj.password
+};
 
-  onLogin(): void {
-    if (this.loginForm.invalid) {
-      this.email_validation_msg = this.loginForm.get('email')?.invalid ? 'Email invalide' : '';
-      this.password_validation_msg = this.loginForm.get('password')?.invalid ? 'Mot de passe requis' : '';
-      return;
+      this.userService.login(loginPayload).subscribe({
+        next: (token: string) => {
+          localStorage.setItem('token', token);
+  window.location.href = '/home';// 🔁 forcer la redirection comme dans login
+        }
+      });
+    },
+    error: (err) => {
+      if (err.status === 409) {
+        alert("Nom d'utilisateur ou email déjà utilisé.");
+      } else {
+        alert('Erreur lors de l’inscription.');
+      }
     }
+  });
+}
 
-    console.log('Connexion:', this.loginForm.value);
+onLogin(): void {
+  if (this.loginForm.invalid) {
+    this.email_validation_msg = this.loginForm.get('email')?.invalid ? 'Email invalide' : '';
+    this.password_validation_msg = this.loginForm.get('password')?.invalid ? 'Mot de passe requis' : '';
+    return;
   }
+
+const loginPayload = {
+  email: this.loginForm.value.email,
+  password: this.loginForm.value.password
+};
+console.log('🔐 Payload envoyé :', loginPayload);
+
+
+  this.userService.login(loginPayload).subscribe({
+   next: (token: string) => {
+  localStorage.setItem('token', token);
+    console.log('🔁 Redirection vers /home');
+      window.location.href = '/home';
+
+}
+,
+    error: (err) => {
+          console.error('❌ Erreur lors du login :', err);
+
+      alert('Connexion échouée. Vérifiez vos identifiants.');
+    }
+  });
+}
+
+
+
+
+
+
+
 }

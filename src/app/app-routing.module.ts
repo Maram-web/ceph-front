@@ -20,6 +20,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { FullComponent } from './layouts/full/full.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
+import { UploadComponent } from './components/upload/upload.component';
+import { FormsModule } from '@angular/forms'; // ✅ ajoute ça
 
 const routes: Routes = [
   // Routes pour l'authentification (sans FullComponent)
@@ -53,7 +55,10 @@ const routes: Routes = [
       { path: 'slider', component: SliderComponent },
       { path: 'slide-toggle', component: SlideToggleComponent },
       { path: 'tooltip', component: TooltipsComponent },
-      { path: 'button', component: ButtonsComponent }
+      { path: 'button', component: ButtonsComponent },
+      { path: 'upload', component: UploadComponent }
+
+
     ]
   },
 

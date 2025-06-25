@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-lg-4" *ngFor="let card of cards">
+    <mat-card class="overflow-hidden upload-card">
+      <div>
+        <img [src]="card.image" class="w-100" alt="upload">
+      </div>
+      <mat-card-content>
+        <p class="fs-18 lh-lg fw-medium">{{ card.label }}</p>
+        <p class="op-7">{{ card.description }}</p>
+
+        <button mat-flat-button [color]="card.btn" class="fw-normal mt-4"
+                (click)="triggerUpload(fileInput, card.type)">
+          Choisir
+        </button>
+
+        <input type="file" #fileInput (change)="onFileSelected($event)" hidden />
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
