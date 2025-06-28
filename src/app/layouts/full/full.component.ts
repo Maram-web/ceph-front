@@ -46,6 +46,8 @@ export class FullComponent {
     { link: "/snackbar", icon: "slack", menu: "Snackbar" },
     { link: "/slider", icon: "sliders", menu: "Slider" },
     { link: "/slide-toggle", icon: "layers", menu: "Slide Toggle" },
+      { menu: 'User Storage', link: '/storage', icon: 'hard-drive' },
+
   ];
 
   constructor(

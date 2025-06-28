@@ -21,7 +21,9 @@ import { FullComponent } from './layouts/full/full.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { UploadComponent } from './components/upload/upload.component';
-import { FormsModule } from '@angular/forms'; // ✅ ajoute ça
+import { FormsModule } from '@angular/forms'; 
+import { UserStorageComponent } from './UserStorage/user-storage.component'; 
+
 
 const routes: Routes = [
   // Routes pour l'authentification (sans FullComponent)
@@ -56,7 +58,8 @@ const routes: Routes = [
       { path: 'slide-toggle', component: SlideToggleComponent },
       { path: 'tooltip', component: TooltipsComponent },
       { path: 'button', component: ButtonsComponent },
-      { path: 'upload', component: UploadComponent }
+      { path: 'upload', component: UploadComponent },
+        { path: 'storage', component: UserStorageComponent }, 
 
 
     ]

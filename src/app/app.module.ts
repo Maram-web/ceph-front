@@ -23,12 +23,14 @@ import { FormsModule } from '@angular/forms';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth/services/auth.interceptor';
+import { UserStorageComponent } from './UserStorage/user-storage.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FullComponent,  
-       LoginComponent
+       LoginComponent,
+       UserStorageComponent
     
   ],
   imports: [
