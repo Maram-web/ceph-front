@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: front-app
-  namespace: default
+  name: frontend
+  namespace: front
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: front-app
+      app: frontend
   template:
     metadata:
       labels:
-        app: front-app
+        app: frontend
     spec:
       containers:
-        - name: front-app
-          image: tondockerhub/tonapp:latest
-          ports:
-            - containerPort: 80
+      - name: frontend
+        image: marammanai/angular-front:latest
+        ports:
+        - containerPort: 80
