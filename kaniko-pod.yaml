@@ -7,17 +7,16 @@ spec:
   containers:
     - name: kaniko
       image: gcr.io/kaniko-project/executor:latest
-      command: ["/kaniko/executor"]
-      args:
-        - "--dockerfile=/workspace/Dockerfile"
-        - "--context=dir:///workspace/"
-        - "--destination=docker.io/marammanai/angular-front:latest"
-        - "--skip-tls-verify"
+      args: []  # 👈 vide car on exécute via Jenkinsfile
       volumeMounts:
         - name: kaniko-secret
           mountPath: /kaniko/.docker
+        - name: workspace-volume
+          mountPath: /workspace
   restartPolicy: Never
   volumes:
     - name: kaniko-secret
       secret:
         secretName: regcred
+    - name: workspace-volume
+      emptyDir: {}
