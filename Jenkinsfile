@@ -17,13 +17,23 @@ pipeline {
             }
         }
 
+        stage('Copy project to /workspace') {
+            steps {
+                container('kaniko') {
+                    sh '''
+                        cp -r . /workspace/
+                    '''
+                }
+            }
+        }
+
         stage('Docker Build & Push with Kaniko') {
             steps {
                 container('kaniko') {
                     sh '''
                         /kaniko/executor \
                           --dockerfile=/workspace/Dockerfile \
-                          --context=/workspace/ \
+                          --context=dir:///workspace/ \
                           --destination=docker.io/marammanai/angular-front:latest \
                           --skip-tls-verify
                     '''
