@@ -8,10 +8,11 @@ spec:
     - name: kaniko
       image: gcr.io/kaniko-project/executor:latest
       args:
-        - "--dockerfile=/workspace/Dockerfile"
-        - "--context=/workspace/"
-        - "--destination=docker.io/marammanai/angular-front:latest"
-        - "--skip-tls-verify"
+        - /kaniko/executor
+        - --dockerfile=/workspace/Dockerfile
+        - --context=/workspace/
+        - --destination=docker.io/marammanai/angular-front:latest
+        - --skip-tls-verify
       volumeMounts:
         - name: kaniko-secret
           mountPath: /kaniko/.docker
