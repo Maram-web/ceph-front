@@ -21,3 +21,4 @@ spec:
     - name: kaniko-secret
       secret:
         secretName: regcred
+
