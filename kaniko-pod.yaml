@@ -15,7 +15,13 @@ spec:
 
     - name: kaniko
       image: gcr.io/kaniko-project/executor:latest
-      # ❌ NE PAS ajouter de `command` ni `args`
+      command: ["/kaniko/executor"]
+      args:
+        - "--dockerfile=/workspace/Dockerfile"
+        - "--context=dir:///workspace/"
+        - "--destination=docker.io/marammanai/angular-front:latest"
+        - "--skip-tls-verify"
+        - "--verbosity=debug"
       volumeMounts:
         - name: kaniko-secret
           mountPath: /kaniko/.docker

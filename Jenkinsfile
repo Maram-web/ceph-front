@@ -47,12 +47,7 @@ pipeline {
             steps {
                 container('kaniko') {
                     sh '''
-                        echo "🐳 Build et push de l'image"
-                        /kaniko/executor \
-                          --dockerfile=/workspace/Dockerfile \
-                          --context=dir:///workspace/ \
-                          --destination=docker.io/marammanai/angular-front:latest \
-                          --skip-tls-verify
+                       
                     '''
                 }
             }
