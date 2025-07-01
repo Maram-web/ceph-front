@@ -16,12 +16,15 @@ spec:
 
     - name: kaniko
       image: gcr.io/kaniko-project/executor:latest
+      args:
+        - tail
+        - -f
+        - /dev/null
       volumeMounts:
         - name: kaniko-secret
           mountPath: /kaniko/.docker
         - name: workspace-volume
           mountPath: /workspace
-
   restartPolicy: Never
   volumes:
     - name: kaniko-secret
