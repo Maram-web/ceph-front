@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:20'   // ou 'node:18' si tu veux
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
+        }
+    }
 
     environment {
         DOCKER_CLI_EXPERIMENTAL = "enabled"
@@ -34,3 +39,4 @@ pipeline {
         }
     }
 }
+
