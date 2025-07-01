@@ -8,7 +8,6 @@ spec:
     - name: kaniko
       image: gcr.io/kaniko-project/executor:latest
       args:
-        - /kaniko/executor
         - --dockerfile=/workspace/Dockerfile
         - --context=/workspace/
         - --destination=docker.io/marammanai/angular-front:latest
