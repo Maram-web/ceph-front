@@ -8,7 +8,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'marammanai/angular-front:latest'
         K8S_MASTER = 'ceph1@192.168.13.11'
-        DEPLOY_YAML = 'k8s-deployment.yaml'  // Ton fichier YAML combiné (deployment + service)
+        DEPLOY_YAML = 'k8s-deployment.yaml'
     }
 
     stages {
@@ -21,7 +21,7 @@ pipeline {
             }
             steps {
                 sh '''
-                    echo "📦 Running Angular Build"
+                    echo "📦 Angular build en cours..."
                     npm install
                     npm run build -- --configuration production
                 '''
@@ -37,7 +37,7 @@ pipeline {
             }
             steps {
                 sh '''
-                    echo "🐳 Building Docker image"
+                    echo "🐳 Construction de l’image Docker..."
                     docker build -t $DOCKER_IMAGE .
                 '''
             }
@@ -45,7 +45,7 @@ pipeline {
 
         stage('Docker Push (optionnel)') {
             when {
-                expression { return false }  // Active-le si tu veux publier vers DockerHub
+                expression { return false }
             }
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
@@ -57,20 +57,29 @@ pipeline {
             }
         }
 
-        stage('Copy YAML to K8s Master') {
+        stage('Copie YAML sur le master K8s') {
             steps {
                 sh '''
-                    echo "📁 Copie du fichier YAML vers le master Kubernetes"
+                    echo "📁 Copie du fichier YAML"
                     ssh-keyscan -H 192.168.13.11 >> ~/.ssh/known_hosts || true
                     scp $DEPLOY_YAML $K8S_MASTER:/home/ceph1/$DEPLOY_YAML
                 '''
             }
         }
 
-        stage('Deploy on Kubernetes') {
+        stage('Création du namespace (si nécessaire)') {
             steps {
                 sh '''
-                    echo "🚀 Déploiement sur Kubernetes"
+                    echo "📂 Création du namespace 'front' si inexistant"
+                    ssh $K8S_MASTER "kubectl get ns front || kubectl create namespace front"
+                '''
+            }
+        }
+
+        stage('Déploiement sur Kubernetes') {
+            steps {
+                sh '''
+                    echo "🚀 Déploiement de l’application"
                     ssh $K8S_MASTER "kubectl apply -f /home/ceph1/$DEPLOY_YAML"
                 '''
             }
