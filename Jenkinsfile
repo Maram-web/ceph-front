@@ -7,19 +7,19 @@ pipeline {
 
     stages {
 
-        stage('Prepare & Build Angular') {
+        stage('Build Angular') {
             steps {
                 container('node') {
                     sh '''
-                        echo "📁 Copie du projet dans /workspace"
+                        echo "📁 Copie dans /workspace"
                         mkdir -p /workspace
                         cp -r . /workspace
                         cd /workspace
 
-                        echo "📦 Installation des dépendances"
+                        echo "📦 npm install"
                         npm install
 
-                        echo "🏗️ Build Angular (prod)"
+                        echo "🏗️ Build Angular"
                         npm run build -- --configuration production
                     '''
                 }
@@ -30,25 +30,24 @@ pipeline {
             steps {
                 container('node') {
                     sh '''
-                        echo "📁 Contenu du build Angular"
+                        echo "📁 Contenu build :"
                         ls -la /workspace/dist/flexy-admin-angular-lite
                     '''
                 }
                 container('kaniko') {
                     sh '''
-                        echo "📄 Vérification Dockerfile"
-                        cat /workspace/Dockerfile || echo "❌ Dockerfile manquant"
+                        echo "📄 Dockerfile contenu :"
+                        cat /workspace/Dockerfile || echo "🚫 Dockerfile manquant"
                     '''
                 }
             }
         }
 
-        stage('Build & Push Docker image via Kaniko') {
+        stage('Docker Build & Push with Kaniko') {
             steps {
                 container('kaniko') {
                     sh '''
-                        echo "🐳 Build et push de l'image Docker vers Docker Hub"
-
+                        echo "🐳 Build et push de l'image"
                         /kaniko/executor \
                           --dockerfile=/workspace/Dockerfile \
                           --context=dir:///workspace/ \
