@@ -1,22 +1,35 @@
-podTemplate(yamlFile: 'kaniko-pod.yaml') {
-    node(POD_LABEL) {
-        container('kaniko') {
+pipeline {
+    agent any
 
-            stage('Build Angular') {
+    environment {
+        DOCKER_CLI_EXPERIMENTAL = "enabled"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/tonrepo.git'
+            }
+        }
+
+        stage('Build Angular') {
+            steps {
                 sh '''
                     npm install
                     npm run build -- --configuration production
                 '''
             }
+        }
 
-            stage('Build & Push Docker Image') {
-                sh '''
-                    /kaniko/executor \
-                      --dockerfile=/workspace/Dockerfile \
-                      --context=/workspace \
-                      --destination=marammanai/angular-front:latest \
-                      --skip-tls-verify
-                '''
+        stage('Docker Build & Push') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    sh '''
+                        echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                        docker build -t marammanai/angular-front:latest .
+                        docker push marammanai/angular-front:latest
+                    '''
+                }
             }
         }
     }
