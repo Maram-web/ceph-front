@@ -6,10 +6,14 @@ pipeline {
     }
 
     stages {
-        stage('Build Angular') {
+
+        stage('Build Angular & Copy to /workspace') {
             steps {
-                container('kaniko') {
+                container('node') {
                     sh '''
+                        mkdir -p /workspace
+                        cp -r . /workspace
+                        cd /workspace
                         npm install
                         npm run build -- --configuration production
                     '''
@@ -17,12 +21,13 @@ pipeline {
             }
         }
 
-        stage('Copy project to /workspace') {
+        stage('Debug Check (optional)') {
             steps {
+                container('node') {
+                    sh 'ls -la /workspace/dist/flexy-admin-angular-lite'
+                }
                 container('kaniko') {
-                    sh '''
-                        cp -r . /workspace/
-                    '''
+                    sh 'ls -la /workspace/Dockerfile'
                 }
             }
         }
@@ -42,4 +47,3 @@ pipeline {
         }
     }
 }
-
