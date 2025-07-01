@@ -5,10 +5,6 @@ pipeline {
         }
     }
 
-    environment {
-        IMAGE = 'marammanai/angular-front:latest'
-    }
-
     stages {
         stage('Build Angular') {
             steps {
@@ -21,14 +17,14 @@ pipeline {
             }
         }
 
-        stage('Build & Push Docker Image') {
+        stage('Docker Build & Push with Kaniko') {
             steps {
                 container('kaniko') {
                     sh '''
                         /kaniko/executor \
-                          --dockerfile=Dockerfile \
-                          --context=. \
-                          --destination=$IMAGE \
+                          --dockerfile=/workspace/Dockerfile \
+                          --context=/workspace/ \
+                          --destination=docker.io/marammanai/angular-front:latest \
                           --skip-tls-verify
                     '''
                 }
