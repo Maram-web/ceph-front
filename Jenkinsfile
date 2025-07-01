@@ -14,7 +14,22 @@ pipeline {
             }
         }
 
+        stage('Check if Image Exists') {
+            steps {
+                script {
+                    def imageExists = sh (
+                        script: "docker pull $DOCKER_IMAGE > /dev/null 2>&1 && echo true || echo false",
+                        returnStdout: true
+                    ).trim()
+                    env.SKIP_BUILD = imageExists
+                }
+            }
+        }
+
         stage('Build Angular') {
+            when {
+                expression { return env.SKIP_BUILD == "false" }
+            }
             steps {
                 sh '''
                     echo "📦 Build Angular app"
@@ -26,6 +41,9 @@ pipeline {
         }
 
         stage('Docker Build') {
+            when {
+                expression { return env.SKIP_BUILD == "false" }
+            }
             steps {
                 sh '''
                     echo "🐳 Build Docker image"
@@ -35,6 +53,9 @@ pipeline {
         }
 
         stage('Docker Push') {
+            when {
+                expression { return env.SKIP_BUILD == "false" }
+            }
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker-hub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                     sh '''
