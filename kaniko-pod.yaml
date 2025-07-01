@@ -9,7 +9,7 @@ spec:
       image: gcr.io/kaniko-project/executor:latest
       args:
         - --dockerfile=/workspace/Dockerfile
-        - --context=/workspace/
+        - --context=dir:///workspace/
         - --destination=docker.io/marammanai/angular-front:latest
         - --skip-tls-verify
       volumeMounts:
