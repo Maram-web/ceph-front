@@ -5,13 +5,24 @@ metadata:
     some-label: kaniko-agent
 spec:
   containers:
+    - name: node
+      image: node:20-alpine
+      command: ["cat"]
+      tty: true
+      volumeMounts:
+        - name: workspace-volume
+          mountPath: /workspace
+
     - name: kaniko
       image: gcr.io/kaniko-project/executor:latest
+      command: ["/busybox"]
+      args: ["sleep", "3600"]
       volumeMounts:
         - name: kaniko-secret
           mountPath: /kaniko/.docker
         - name: workspace-volume
           mountPath: /workspace
+
   restartPolicy: Never
   volumes:
     - name: kaniko-secret
