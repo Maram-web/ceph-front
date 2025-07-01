@@ -1,42 +1,38 @@
 pipeline {
     agent {
-        docker {
-            image 'node:20'   // ou 'node:18' si tu veux
-            args '-v /var/run/docker.sock:/var/run/docker.sock'
+        kubernetes {
+            yamlFile 'kaniko-pod.yaml'
         }
     }
 
     environment {
-        DOCKER_CLI_EXPERIMENTAL = "enabled"
+        IMAGE = 'marammanai/angular-front:latest'
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                echo "code already checked par scm config"
-            }
-        }
-
         stage('Build Angular') {
             steps {
-                sh '''
-                    npm install
-                    npm run build -- --configuration production
-                '''
+                container('kaniko') {
+                    sh '''
+                        npm install
+                        npm run build -- --configuration production
+                    '''
+                }
             }
         }
 
-        stage('Docker Build & Push') {
+        stage('Build & Push Docker Image') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                container('kaniko') {
                     sh '''
-                        echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-                        docker build -t marammanai/angular-front:latest .
-                        docker push marammanai/angular-front:latest
+                        /kaniko/executor \
+                          --dockerfile=Dockerfile \
+                          --context=. \
+                          --destination=$IMAGE \
+                          --skip-tls-verify
                     '''
                 }
             }
         }
     }
 }
-
