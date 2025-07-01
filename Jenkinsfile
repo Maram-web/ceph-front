@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/Maram-web/ceph-front.git'
+                echo "code already checked par scm config"
             }
         }
 
