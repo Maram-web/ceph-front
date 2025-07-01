@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = 'marammanai/angular-front:latest'
-        K8S_MASTER = 'ceph1' // ✏️ IP ou DNS du master Kubernetes
+        K8S_MASTER = '192.168.13.11' // ✏️ IP ou DNS du master Kubernetes
         DEPLOY_YAML = 'k8s-deployment.yaml'
     }
 
