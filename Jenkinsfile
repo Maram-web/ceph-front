@@ -30,9 +30,6 @@ pipeline {
             steps {
                 container('node') {
                     sh '''
-                        echo "📁 Contenu de /workspace"
-                        ls -la /workspace
-
                         echo "📁 Contenu du build Angular"
                         ls -la /workspace/dist/flexy-admin-angular-lite
                     '''
