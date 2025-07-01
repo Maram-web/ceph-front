@@ -15,8 +15,8 @@ spec:
 
     - name: kaniko
       image: gcr.io/kaniko-project/executor:latest
-      command: ["/busybox"]
-      args: ["sleep", "3600"]
+      # ❌ Pas de command
+      # ❌ Pas d'args
       volumeMounts:
         - name: kaniko-secret
           mountPath: /kaniko/.docker
