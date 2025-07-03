@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://192.168.13.11:30080/api' // ton backend exposé sur K8s
+  apiUrl: 'http://192.168.13.11:30093/api' // Gateway exposé (NodePort)
 };

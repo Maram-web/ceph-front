@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment'; // ✅ Ajouter l'import
 
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
-  private baseUrl = 'http://192.168.13.11:30080/api/storage';
+  private baseUrl = `${environment.apiUrl}/storage`; // ✅ Utilisation de l'env
 
   constructor(private http: HttpClient) {}
 
@@ -22,8 +23,8 @@ export class StorageService {
       observe: 'events'
     });
   }
-  getUsersStorageInfo(): Observable<any[]> {
-  return this.http.get<any[]>('http://192.168.13.11:30080/api/storage/users');
-}
 
+  getUsersStorageInfo(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/users`);
+  }
 }
