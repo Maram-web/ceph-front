@@ -18,7 +18,7 @@ username: string;
 })
 export class UserService {
 
-  private baseUrl = 'http://localhost:8089/api/auth'; // ✅ adapte le port si besoin
+  private baseUrl = 'http://192.168.13.11:30080/api/auth'; // ✅ adapte le port si besoin
 
   constructor(private http: HttpClient) {}
 
