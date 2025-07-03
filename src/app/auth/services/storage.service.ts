@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class StorageService {
 
-  private baseUrl = 'http://localhost:8089/api/storage';
+  private baseUrl = 'http://192.168.13.11:30080/api/storage';
 
   constructor(private http: HttpClient) {}
 
