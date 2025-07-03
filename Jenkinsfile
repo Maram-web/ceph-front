@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_REPO = "marammanai/angular-front"
         K8S_MASTER = "ceph1@192.168.13.11"
-        DEPLOY_TEMPLATE = "k8s-deployment.yaml"
+        DEPLOY_TEMPLATE = "k8s-deployment-template.yaml"
         DEPLOY_FINAL = "k8s-deployment.yaml"
     }
 
@@ -56,6 +56,7 @@ pipeline {
                 sh '''
                     echo "📝 Preparing YAML with updated image tag"
                     sed "s|__IMAGE_TAG__|$IMAGE_TAG|g" $DEPLOY_TEMPLATE > $DEPLOY_FINAL
+                    cat $DEPLOY_FINAL  # 👈 Ajout utile pour debug
                 '''
             }
         }
