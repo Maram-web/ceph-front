@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: marammanai/angular-front:latest
+        image: marammanai/angular-front:__IMAGE_TAG__
         ports:
         - containerPort: 80
 ---
