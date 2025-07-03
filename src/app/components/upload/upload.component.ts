@@ -57,7 +57,7 @@ const headers = new HttpHeaders({
   'Authorization': `Bearer ${token}`
 });
 
-this.http.post('http://localhost:8080/api/storage/s3/upload', formData, {
+this.http.post('http://192.168.13.11:30080/api/storage/s3/upload', formData, {
       headers,
       reportProgress: true,
       observe: 'events',

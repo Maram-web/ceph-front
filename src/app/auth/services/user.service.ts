@@ -26,7 +26,7 @@ export class UserService {
     return this.http.post(`${this.baseUrl}/register`, data);
   }>*/
   register(data: any): Observable<any> {
-  return this.http.post('http://localhost:8089/api/auth/register', data);
+  return this.http.post('http://192.168.13.11:30080/api/auth/register', data);
 }
 
 
