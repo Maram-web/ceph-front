@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class StorageService {
-  private baseUrl = 'http://localhost:8090/api/storage';
+  private baseUrl = 'http://192.168.13.11:30080/api/storage';
 
   constructor(private http: HttpClient) {}
 
@@ -23,7 +23,7 @@ export class StorageService {
     });
   }
   getUsersStorageInfo(): Observable<any[]> {
-  return this.http.get<any[]>('http://localhost:8089/api/storage/users');
+  return this.http.get<any[]>('http://192.168.13.11:30080/api/storage/users');
 }
 
 }
