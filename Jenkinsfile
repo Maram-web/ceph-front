@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_REPO = "marammanai/angular-front"
         K8S_MASTER = "ceph1@192.168.13.11"
-        DEPLOY_TEMPLATE = "k8s-deployment-template.yaml"
+        DEPLOY_TEMPLATE = "k8s-deployment.yaml"
         DEPLOY_FINAL = "k8s-deployment.yaml"
     }
 
