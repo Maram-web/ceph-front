@@ -66,7 +66,7 @@ onRegister(): void {
       this.userService.login(loginPayload).subscribe({
         next: (token: string) => {
           localStorage.setItem('token', token);
-this.router.navigateByUrl('/home');  // ✅ Angular gère la navigation
+this.router.navigate(['/dashboard']); // si dashboard est défini au lieu de home
         }
       });
     },
@@ -98,7 +98,7 @@ console.log('🔐 Payload envoyé :', loginPayload);
    next: (token: string) => {
   localStorage.setItem('token', token);
     console.log('🔁 Redirection vers /home');
-this.router.navigateByUrl('/home');  // ✅ Angular gère la navigation
+this.router.navigate(['/dashboard']); // si dashboard est défini au lieu de home
 
 }
 ,
