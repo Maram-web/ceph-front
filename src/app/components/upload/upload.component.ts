@@ -63,7 +63,7 @@ if (token) {
 }
 
 
-this.http.post('${environment.apiUrl}/storage/s3/upload', formData, {
+this.http.post(`${environment.apiUrl}/storage/s3/upload`, formData, {
       headers,
       reportProgress: true,
       observe: 'events',
