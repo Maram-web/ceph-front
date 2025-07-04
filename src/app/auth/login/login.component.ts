@@ -51,7 +51,10 @@ constructor(private fb: FormBuilder, private userService: UserService, private r
   }
 
 onRegister(): void {
+    console.log('📦 Données envoyées au backend :', this.signUpObj);  // ⬅️ Ajoute ceci
+
   this.userService.register(this.signUpObj).subscribe({
+
     next: () => {
       alert('Inscription réussie ! Vous êtes connecté.');
       // facultatif : tu peux aussi te connecter automatiquement ici
@@ -63,7 +66,7 @@ onRegister(): void {
       this.userService.login(loginPayload).subscribe({
         next: (token: string) => {
           localStorage.setItem('token', token);
-  window.location.href = '/home';// 🔁 forcer la redirection comme dans login
+this.router.navigateByUrl('/home');  // ✅ Angular gère la navigation
         }
       });
     },
@@ -95,7 +98,7 @@ console.log('🔐 Payload envoyé :', loginPayload);
    next: (token: string) => {
   localStorage.setItem('token', token);
     console.log('🔁 Redirection vers /home');
-      window.location.href = '/home';
+this.router.navigateByUrl('/home');  // ✅ Angular gère la navigation
 
 }
 ,
