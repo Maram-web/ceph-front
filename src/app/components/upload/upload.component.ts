@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpEventType } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+
+
+
 
 @Component({
   selector: 'app-upload',
@@ -53,11 +57,13 @@ export class UploadComponent {
     const token = localStorage.getItem('token') || '';
     console.log('🛡️ Token envoyé :', token);
 
-const headers = new HttpHeaders({
-  'Authorization': `Bearer ${token}`
-});
+let headers = new HttpHeaders();
+if (token) {
+  headers = headers.set('Authorization', `Bearer ${token}`);
+}
 
-this.http.post('http://192.168.13.11:30090/api/storage/s3/upload', formData, {
+
+this.http.post('${environment.apiUrl}/storage/s3/upload', formData, {
       headers,
       reportProgress: true,
       observe: 'events',

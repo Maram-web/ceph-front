@@ -16,6 +16,7 @@ export class UserService {
       withCredentials: true // ✅ Si le backend utilise les cookies ou JWT avec credentials
     });
   }
+  
 
   login(loginPayload: { email: string; password: string }): Observable<string> {
     return this.http.post(`${this.baseUrl}/login`, loginPayload, {
