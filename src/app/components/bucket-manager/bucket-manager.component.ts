@@ -56,9 +56,10 @@ createBucket() {
     this.bucketService.listFiles(this.selectedBucket).subscribe(files => {
       this.files = files;
     });
- this.bucketService.getRemainingQuota(this.selectedBucket!).subscribe(quota => {
-  this.quotaMessage = quota;
+this.bucketService.getRemainingQuota(this.selectedBucket!).subscribe(res => {
+  this.quotaMessage = res.quota; // ✅ maintenant c’est bien une string
 });
+
 
   }
   
