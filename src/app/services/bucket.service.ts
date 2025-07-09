@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class BucketService {
-  private baseUrl = '/api/s3'; // ✅ Uniformiser l'URL de base
+  private baseUrl = '/api'; // ✅ Uniformiser l'URL de base
 
   constructor(private http: HttpClient) {}
 
