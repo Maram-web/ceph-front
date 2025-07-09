@@ -15,6 +15,7 @@ export class BucketManagerComponent implements OnInit {
   showCreateInput = false; // 👈 new
   files: any[] = [];
   selectedFiles: FileList | null = null;
+quotaMessage: string = '';
 
 constructor(
   private bucketService: BucketService,
@@ -55,7 +56,12 @@ createBucket() {
     this.bucketService.listFiles(this.selectedBucket).subscribe(files => {
       this.files = files;
     });
+ this.bucketService.getRemainingQuota(this.selectedBucket!).subscribe(quota => {
+  this.quotaMessage = quota;
+});
+
   }
+  
 
   onFileSelected(event: any) {
     this.selectedFiles = event.target.files;

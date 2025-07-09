@@ -35,6 +35,11 @@
   <button mat-raised-button color="primary" [routerLink]="['/bucket', selectedBucket]">
     Manage "{{ selectedBucket }}"
   </button>
+  <!-- Quota Display -->
+<div *ngIf="quotaMessage" class="text-center text-success mt-2">
+  {{ quotaMessage }}
+</div>
+
 </div>
 
 
