@@ -13,7 +13,7 @@ export class BucketService {
   }
 
   getBuckets(): Observable<string[]> {
-    return this.http.get<string[]>(`${this.baseUrl}/buckets`);
+  return this.http.get<string[]>(`${this.baseUrl}/s3/buckets`);
   }
 
   listFiles(bucket: string): Observable<any[]> {
