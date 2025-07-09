@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class BucketService {
-  private apiUrl = '/api/buckets';
+private baseUrl = '/s3';
 
   constructor(private http: HttpClient) {}
 /*
@@ -13,21 +13,30 @@ export class BucketService {
     return this.http.post(`${this.apiUrl}`, { name });
   }*/
 createBucket(name: string): Observable<any> {
-  return this.http.post('/api/buckets', { name }); // ← appel REST réel ici
+  return this.http.post(`/api/s3/bucket/create?name=${name}`, {});
+}
+
+getBuckets(): Observable<string[]> {
+  return this.http.get<string[]>(`/api/s3/buckets`);
 }
 
 
+listFiles(bucket: string): Observable<any[]> {
+  return this.http.get<any[]>(`${this.baseUrl}/${bucket}/files`);
+}
+
+uploadFile(bucket: string, file: File): Observable<any> {
+  const formData = new FormData();
+  formData.append('file', file);
+  return this.http.post(`${this.baseUrl}/${bucket}/upload`, formData);
+}
+
+
+
+/*
   getBuckets(): Observable<string[]> {
     return this.http.get<string[]>(this.apiUrl);
-  }
+  }*/
 
-  listFiles(bucket: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/${bucket}/files`);
-  }
-
-  uploadFile(bucket: string, file: File): Observable<any> {
-    const formData = new FormData();
-    formData.append('file', file);
-    return this.http.post(`${this.apiUrl}/${bucket}/upload`, formData);
-  }
+  
 }

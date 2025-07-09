@@ -36,20 +36,17 @@ constructor(
       this.buckets = data;
     });
   }
-
 createBucket() {
-  if (!this.newBucketName.trim()) return;
+  const rawName = this.newBucketName.trim();
+  if (!rawName) return;
 
-  const name = this.newBucketName;
-  this.newBucketName = '';
-  this.showCreateInput = false;
-
-  console.log('FAKE bucket created:', name);
-
-  // ⚠️ Pas d'appel HTTP, juste navigation directe
-  this.router.navigate(['/bucket', name]);
-  
+  this.bucketService.createBucket(rawName).subscribe(() => {
+    this.newBucketName = '';
+    this.showCreateInput = false;
+    this.loadBuckets(); // Rafraîchir liste après création
+  });
 }
+
 
 
 
