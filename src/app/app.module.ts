@@ -5,6 +5,12 @@ import { allIcons } from 'angular-feather/icons';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
+
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -24,13 +30,25 @@ import { FormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth/services/auth.interceptor';
 import { UserStorageComponent } from './UserStorage/user-storage.component';
+import { BucketManagerComponent } from './components/bucket-manager/bucket-manager.component';
+import { BucketDetailsComponent } from './components/bucket-details/bucket-details.component'; // ← ici ton composant
+import { VmManagerComponent } from './components/vm-manager/vm-manager.component';
+import { VmListComponent } from './components/vm-list/vm-list.component';
+import { VmDetailsComponent } from './components/vm-details/vm-details.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     FullComponent,  
        LoginComponent,
-       UserStorageComponent
+      
+       UserStorageComponent, 
+       BucketManagerComponent,
+       BucketDetailsComponent,
+       VmManagerComponent ,
+       VmListComponent,
+VmDetailsComponent
     
   ],
   imports: [
@@ -47,7 +65,13 @@ import { UserStorageComponent } from './UserStorage/user-storage.component';
       MatButtonModule,
        RegisterComponent,
        ReactiveFormsModule ,
-       HttpClientModule
+       HttpClientModule,
+           MatCardModule,
+    MatTableModule,
+    MatIconModule,
+    MatSelectModule,
+MatOptionModule
+
   ],
   providers: [
         {

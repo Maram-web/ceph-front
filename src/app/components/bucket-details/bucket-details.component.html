@@ -1,0 +1,52 @@
+<mat-card>
+  <mat-card-content>
+    <h3 class="mb-4">📁 Files in "{{ bucketName }}"</h3>
+
+    <!-- Drag & Drop Upload Zone -->
+    <div
+      class="upload-zone"
+      (drop)="onDrop($event)"
+      (dragover)="$event.preventDefault()"
+      (click)="fileInput.click()"
+    >
+      <p>📂 Drag or upload file</p>
+      <input type="file" hidden #fileInput (change)="onDrop($event)" multiple />
+    </div>
+
+    <!-- File Table -->
+    <div class="table-responsive mt-4" *ngIf="files.length > 0; else noFiles">
+      <table mat-table [dataSource]="files" class="w-100">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let file">{{ file.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="size">
+          <th mat-header-cell *matHeaderCellDef> Size </th>
+          <td mat-cell *matCellDef="let file">{{ file.size | number }} bytes</td>
+        </ng-container>
+
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef> Date </th>
+          <td mat-cell *matCellDef="let file">{{ file.lastModified | date:'short' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> </th>
+          <td mat-cell *matCellDef="let file">
+            <button mat-icon-button (click)="download(file)">
+              <mat-icon>download</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['name', 'size', 'date', 'actions']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['name', 'size', 'date', 'actions'];"></tr>
+      </table>
+    </div>
+
+    <ng-template #noFiles>
+      <p class="text-muted text-center mt-4">No files uploaded yet.</p>
+    </ng-template>
+  </mat-card-content>
+</mat-card>

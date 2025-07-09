@@ -1,0 +1,18 @@
+<mat-card>
+  <mat-card-title>🖥️ VM: {{ vm?.name }}</mat-card-title>
+  <mat-card-content>
+    <p><strong>OS:</strong> {{ vm?.osType }}</p>
+    <p><strong>Taille:</strong> {{ vm?.size }}</p>
+    <p><strong>Date:</strong> {{ vm?.createdAt | date:'short' }}</p>
+
+    <mat-form-field class="w-100">
+      <input matInput [(ngModel)]="command" placeholder="Entrer commande..." (keyup.enter)="executeCommand()" />
+    </mat-form-field>
+
+    <mat-card class="mt-3 bg-dark text-white" *ngIf="output.length > 0">
+      <mat-card-content>
+        <pre *ngFor="let line of output">{{ line }}</pre>
+      </mat-card-content>
+    </mat-card>
+  </mat-card-content>
+</mat-card>

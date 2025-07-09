@@ -1,0 +1,50 @@
+.table-responsive {
+  overflow-x: auto;
+  margin-top: 1rem;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+h4.mb-56 {
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+.text-muted {
+  color: #888;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+.small-input {
+  width: 200px; // ou 250px, selon ton design
+  margin-right: 8px;
+}
+.bucket-input {
+  width: 160px; // 👈 Plus petit que 220px
+  margin-right: 8px;
+}
+
+.input-row {
+  margin-top: 16px; // 👈 Eloigne verticalement du bouton au-dessus
+}
+
+.text-center {
+  text-align: center;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.gap-3 {
+  gap: 12px;
+}
+
+.align-items-center {
+  align-items: center;
+}

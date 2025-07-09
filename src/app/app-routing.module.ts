@@ -23,6 +23,14 @@ import { RegisterComponent } from './auth/register/register.component';
 import { UploadComponent } from './components/upload/upload.component';
 import { FormsModule } from '@angular/forms'; 
 import { UserStorageComponent } from './UserStorage/user-storage.component'; 
+import { BucketManagerComponent } from './components/bucket-manager/bucket-manager.component';
+
+import { BucketDetailsComponent } from './components/bucket-details/bucket-details.component';
+
+import { VmManagerComponent } from './components/vm-manager/vm-manager.component';
+import { VmListComponent } from './components/vm-list/vm-list.component';
+
+import { VmDetailsComponent } from './components/vm-details/vm-details.component';
 
 
 const routes: Routes = [
@@ -60,6 +68,18 @@ const routes: Routes = [
       { path: 'button', component: ButtonsComponent },
       { path: 'upload', component: UploadComponent },
         { path: 'storage', component: UserStorageComponent }, 
+          { path: 'spaces', component: BucketManagerComponent },
+          { path: 'bucket/:name', component: BucketDetailsComponent },
+          { path: 'create-vm', component: VmManagerComponent },
+
+
+{ path: 'vms', component: VmListComponent }, // ✅ Affiche la liste des VMs
+{ path: 'vms/create', component: VmManagerComponent }, // Créer une VM
+{ path: 'vms/:name', component: VmDetailsComponent }, // Voir une VM en détail
+
+
+
+
 
 
     ]

@@ -1,0 +1,35 @@
+<mat-card>
+  <mat-card-content>
+    <h2 class="mb-4">Créer une nouvelle VM</h2>
+
+    <!-- Nom de la VM -->
+    <mat-form-field appearance="fill" class="w-100 mb-3">
+      <mat-label>Nom de la VM</mat-label>
+      <input matInput [(ngModel)]="vmName" placeholder="ex: aya-dev-vm" />
+    </mat-form-field>
+
+    <!-- OS -->
+    <mat-form-field appearance="fill" class="w-100 mb-3">
+      <mat-label>Type d'OS</mat-label>
+      <mat-select [(value)]="osType">
+        <mat-option value="ubuntu">Ubuntu</mat-option>
+        <mat-option value="windows">Windows</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Taille -->
+    <mat-form-field appearance="fill" class="w-100 mb-3">
+      <mat-label>Taille</mat-label>
+      <mat-select [(value)]="size">
+        <mat-option value="small">Small - 512 Mo</mat-option>
+        <mat-option value="medium">Medium - 1024 Mo</mat-option>
+        <mat-option value="large">Large - 2048 Mo</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Bouton -->
+    <button mat-raised-button color="primary" (click)="createVm()">Créer la VM</button>
+
+    <p class="mt-3" *ngIf="resultMessage">{{ resultMessage }}</p>
+  </mat-card-content>
+</mat-card>

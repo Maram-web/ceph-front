@@ -1,0 +1,21 @@
+.upload-zone {
+  border: 2px dashed #90caf9;
+  border-radius: 12px;
+  padding: 60px 20px;
+  text-align: center;
+  cursor: pointer;
+  background-color: #f3faff;
+  transition: background-color 0.2s ease;
+  margin-bottom: 32px;
+
+  &:hover {
+    background-color: #e3f2fd;
+  }
+
+  p {
+    font-size: 18px;
+    color: #1976d2;
+    margin: 0;
+    font-weight: 500;
+  }
+}

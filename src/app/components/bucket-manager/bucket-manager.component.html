@@ -1,0 +1,63 @@
+<mat-card class="w-100">
+  <mat-card-content>
+
+    <h4 class="mb-56 text-center">📁 Bucket Manager</h4>
+
+    <!-- Select Existing Bucket -->
+    <mat-form-field appearance="outline" class="w-100 mb-3">
+      <mat-label>Select existing bucket</mat-label>
+      <mat-select [(value)]="selectedBucket" (selectionChange)="onBucketChange()">
+        <mat-option *ngFor="let bucket of buckets" [value]="bucket">{{ bucket }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Separator Text -->
+    <div class="text-center text-muted mb-2">— or —</div>
+
+    <!-- Centered "Create new bucket" Button -->
+    <div class="text-center mb-3">
+      <button mat-stroked-button color="primary" (click)="toggleCreate()">Create new bucket</button>
+    </div>
+
+    <!-- Centered Input Form (hidden until click) -->
+   <!-- Centered Input Form (hidden until click) -->
+<div *ngIf="showCreateInput" class="d-flex justify-content-center align-items-center gap-3 mb-3 input-row">
+  <mat-form-field appearance="outline" class="bucket-input">
+    <mat-label>New bucket name</mat-label>
+    <input matInput [(ngModel)]="newBucketName" />
+  </mat-form-field>
+  <button mat-flat-button color="accent" (click)="createBucket()">Create</button>
+</div>
+
+
+    <!-- Upload Files -->
+ <div *ngIf="selectedBucket" class="text-center mt-3">
+  <button mat-raised-button color="primary" [routerLink]="['/bucket', selectedBucket]">
+    Manage "{{ selectedBucket }}"
+  </button>
+</div>
+
+
+    <!-- File Table -->
+    <div *ngIf="files.length > 0" class="table-responsive mt-4">
+      <table mat-table [dataSource]="files" class="w-100">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> File name </th>
+          <td mat-cell *matCellDef="let file">{{ file.name }}</td>
+        </ng-container>
+        <ng-container matColumnDef="size">
+          <th mat-header-cell *matHeaderCellDef> Size </th>
+          <td mat-cell *matCellDef="let file">{{ file.size | number }} bytes</td>
+        </ng-container>
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef> Type </th>
+          <td mat-cell *matCellDef="let file">{{ file.type || 'Unknown' }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['name', 'size', 'type']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['name', 'size', 'type'];"></tr>
+      </table>
+    </div>
+
+  </mat-card-content>
+</mat-card>

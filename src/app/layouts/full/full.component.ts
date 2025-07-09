@@ -47,6 +47,9 @@ export class FullComponent {
     { link: "/slider", icon: "sliders", menu: "Slider" },
     { link: "/slide-toggle", icon: "layers", menu: "Slide Toggle" },
       { menu: 'User Storage', link: '/storage', icon: 'hard-drive' },
+        { menu: 'Spaces', icon: 'hard-drive', link: 'spaces' },
+  { menu: 'Manage VMs', icon: 'cpu', link: 'vms' },
+
 
   ];
 
