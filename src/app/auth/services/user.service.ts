@@ -17,8 +17,9 @@ export class UserService {
     });
   }
   
+ login(loginPayload: { identifier: string; password: string }): Observable<string>
+{
 
-  login(loginPayload: { email: string; password: string }): Observable<string> {
     return this.http.post(`${this.baseUrl}/login`, loginPayload, {
       responseType: 'text',
       withCredentials: true // ✅ Obligatoire si le token est mis dans un cookie HTTPOnly

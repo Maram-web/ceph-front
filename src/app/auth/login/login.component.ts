@@ -59,7 +59,7 @@ onRegister(): void {
       alert('Inscription réussie ! Vous êtes connecté.');
       // facultatif : tu peux aussi te connecter automatiquement ici
    const loginPayload = {
-  email: this.signUpObj.email,
+  identifier: this.signUpObj.email,
   password: this.signUpObj.password
 };
 
@@ -88,9 +88,10 @@ onLogin(): void {
   }
 
 const loginPayload = {
-  email: this.loginForm.value.email,
+  identifier: this.loginForm.value.email, // ✅ champ correct pour le backend
   password: this.loginForm.value.password
 };
+
 console.log('🔐 Payload envoyé :', loginPayload);
 
 
