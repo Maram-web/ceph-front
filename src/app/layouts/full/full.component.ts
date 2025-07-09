@@ -27,7 +27,7 @@ export class FullComponent {
   routerActive: string = "activelink";
 
   sidebarMenu: sidebarMenu[] = [
-    { menu: 'Upload', icon: 'cloud-upload', link: '/upload' }
+{ menu: 'Upload', icon: 'upload-cloud', link: '/upload' }
 ,
     { link: "/home", icon: "home", menu: "Dashboard" },
     { link: "/button", icon: "disc", menu: "Buttons" },

@@ -10,6 +10,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
+import { UploadCloud } from 'angular-feather/icons';
 
 
 
@@ -35,7 +36,6 @@ import { BucketDetailsComponent } from './components/bucket-details/bucket-detai
 import { VmManagerComponent } from './components/vm-manager/vm-manager.component';
 import { VmListComponent } from './components/vm-list/vm-list.component';
 import { VmDetailsComponent } from './components/vm-details/vm-details.component';
-
 
 @NgModule({
   declarations: [
@@ -70,7 +70,10 @@ VmDetailsComponent
     MatTableModule,
     MatIconModule,
     MatSelectModule,
-MatOptionModule
+MatOptionModule, 
+FeatherModule.pick({
+  UploadCloud,
+})
 
   ],
   providers: [
