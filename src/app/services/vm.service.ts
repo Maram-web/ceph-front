@@ -1,40 +1,24 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class VmService {
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   getAllVms(username: string): Observable<any[]> {
-    // 🎭 MOCK: liste de VMs factices
-    return of([
-      {
-        name: 'vm-ubuntu-test',
-        osType: 'ubuntu',
-        size: 'medium',
-        createdAt: new Date()
-      },
-      {
-        name: 'vm-win-dev',
-        osType: 'windows',
-        size: 'large',
-        createdAt: new Date()
-      }
-    ]);
+    return this.http.get<any[]>(`/api/vm/by-user/${username}`);
   }
 
   createVm(payload: any): Observable<string> {
-    console.log('MOCK createVm called with:', payload);
-    return of('✅ VM mock créée avec succès');
+    return this.http.post('/api/vm/create', payload, { responseType: 'text' });
   }
 
   getVmDetails(name: string): Observable<any> {
-    return of({
-      name: name,
-      osType: 'ubuntu',
-      size: 'medium',
-      createdAt: new Date(),
-      status: 'running'
-    });
+    return this.http.get(`/api/vm/details/${name}`);
+  }
+
+  deleteVm(vmName: string): Observable<string> {
+    return this.http.delete(`/api/vm/delete/${vmName}`, { responseType: 'text' });
   }
 }

@@ -43,4 +43,10 @@ export class BucketService {
       `${this.baseUrl}/s3/${bucket}/quota/remaining`
     );
   }
+
+
+deleteFile(bucketName: string, filename: string) {
+  return this.http.delete(`${environment.apiUrl}/s3/${bucketName}/files/${filename}`);
+}
+
 }

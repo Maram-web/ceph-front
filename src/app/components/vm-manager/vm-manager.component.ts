@@ -15,17 +15,21 @@ export class VmManagerComponent {
 
   constructor(private vmService: VmService) {}
 
-  createVm() {
-    const payload = {
-      username: this.username,
-      name: this.vmName,
-      osType: this.osType,
-      size: this.size
-    };
+createVm() {
+  const payload = {
+    username: this.username,
+    vmName: this.vmName, // important : correspond à `getVmName()` dans le backend
+    osType: this.osType,
+    size: this.size,
+    storageType: 'RBD' // optionnel ou "FS" selon le besoin
+  };
 
-    this.vmService.createVm(payload).subscribe({
-      next: (res: any) => this.resultMessage = res.message || '✅ VM créée avec succès',
-      error: (err: any) => this.resultMessage = '❌ Erreur : ' + err.message
-    });
-  }
+  this.vmService.createVm(payload).subscribe({
+    next: (res: any) => this.resultMessage = res,
+    error: (err: any) => this.resultMessage = '❌ Erreur : ' + err.message
+  });
+}
+
+
+   
 }

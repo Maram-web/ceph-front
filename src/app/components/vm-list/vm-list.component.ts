@@ -28,4 +28,16 @@ export class VmListComponent implements OnInit {
   goToCreate() {
     this.router.navigate(['/vms/create']);
   }
+  deleteVm(vmName: string) {
+  if (confirm(`Supprimer la VM ${vmName} ?`)) {
+    this.vmService.deleteVm(vmName).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.vms = this.vms.filter(vm => vm.vmName !== vmName); // retirer de l'affichage
+      },
+      error: (err) => console.error('Erreur suppression', err)
+    });
+  }
+}
+
 }

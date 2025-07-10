@@ -17,16 +17,21 @@
     <div class="table-responsive mt-4" *ngIf="files.length > 0; else noFiles">
       <table mat-table [dataSource]="files" class="w-100">
 
+        <!-- Nom -->
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef> Nom </th>
           <td mat-cell *matCellDef="let file"> {{ file.name }} </td>
         </ng-container>
 
+        <!-- Actions -->
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef> </th>
           <td mat-cell *matCellDef="let file">
-            <button mat-icon-button (click)="download(file)">
+            <button mat-icon-button (click)="download(file)" matTooltip="Télécharger">
               <mat-icon>download</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteFileFromBucket(file.name)" matTooltip="Supprimer">
+              <mat-icon>delete</mat-icon>
             </button>
           </td>
         </ng-container>
@@ -36,47 +41,40 @@
       </table>
     </div>
 
+    <!-- Aucun fichier -->
     <ng-template #noFiles>
       <p class="text-muted text-center mt-4">Aucun fichier téléchargé pour le moment.</p>
     </ng-template>
+
+    <!-- Affichage visuel des fichiers -->
+    <div class="row mt-4">
+      <div class="col-md-4 mb-3" *ngFor="let file of files">
+        <mat-card>
+          <ng-container [ngSwitch]="getFileType(file.name)">
+            <!-- 🖼️ Image -->
+            <img *ngSwitchCase="'image'" [src]="getFileUrl(file.name)" class="img-fluid" [alt]="file.name" />
+
+            <!-- 🎞️ Vidéo -->
+            <video *ngSwitchCase="'video'" [src]="getFileUrl(file.name)" class="img-fluid" controls></video>
+
+            <!-- 📄 PDF -->
+            <iframe *ngSwitchCase="'pdf'" [src]="getFileUrl(file.name)" width="100%" height="150px"></iframe>
+
+            <!-- ❓ Autres -->
+            <div *ngSwitchDefault>
+              <mat-icon>insert_drive_file</mat-icon>
+              <br />
+              <a [href]="getFileUrl(file.name)" download>{{ file.name }}</a>
+            </div>
+          </ng-container>
+
+          <mat-card-content>
+            <p>{{ file.name }}</p>
+            <button mat-button color="warn" (click)="deleteFileFromBucket(file.name)">🗑 Supprimer</button>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
   </mat-card-content>
 </mat-card>
-
-<!-- Affichage visuel des fichiers -->
-<div class="row mt-4" *ngIf="files.length > 0">
-  <div class="col-3" *ngFor="let file of files">
-    <mat-card class="mb-3 text-center">
-      <ng-container [ngSwitch]="getFileType(file.name)">
-
-        <!-- 🖼️ Image -->
-        <img *ngSwitchCase="'image'"
-             [src]="getFileUrl(file.name)"
-             class="img-fluid"
-             [alt]="file.name" />
-
-        <!-- 🎞️ Vidéo -->
-        <video *ngSwitchCase="'video'"
-               [src]="getFileUrl(file.name)"
-               class="img-fluid"
-               controls></video>
-
-        <!-- 📄 PDF -->
-        <iframe *ngSwitchCase="'pdf'"
-                [src]="getFileUrl(file.name)"
-                width="100%" height="150px"></iframe>
-
-        <!-- 📁 Fichier inconnu -->
-        <div *ngSwitchDefault>
-          <mat-icon>insert_drive_file</mat-icon>
-          <br />
-          <a [href]="getFileUrl(file.name)" download>{{ file.name }}</a>
-        </div>
-
-      </ng-container>
-
-      <mat-card-content>
-        <p>{{ file.name }}</p>
-      </mat-card-content>
-    </mat-card>
-  </div>
-</div>

@@ -27,4 +27,6 @@ export class StorageService {
   getUsersStorageInfo(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/users`);
   }
+
+
 }
