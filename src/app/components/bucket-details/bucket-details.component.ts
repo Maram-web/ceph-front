@@ -13,6 +13,7 @@ export class BucketDetailsComponent implements OnInit {
   bucketName: string = '';
   files: any[] = [];
 
+
   constructor(private route: ActivatedRoute, private bucketService: BucketService) {}
 
   ngOnInit(): void {
@@ -38,10 +39,11 @@ export class BucketDetailsComponent implements OnInit {
     });
   }
 
-  download(file: any) {
-    const url = `/api/buckets/${this.bucketName}/files/${file.name}`;
-    window.open(url, '_blank');
-  }
+download(file: any) {
+  const url = this.getFileUrl(file.name);
+  window.open(url, '_blank');
+}
+
 
   
   onDrop(event: any) {
@@ -53,7 +55,7 @@ export class BucketDetailsComponent implements OnInit {
     }
   }
 
-  getImageUrl(filename: string): string {
+getFileUrl(filename: string): string {
   return `${environment.apiUrl}/s3/${this.bucketName}/files/${filename}`;
 }
 getFileType(filename: string): 'image' | 'video' | 'pdf' | 'other' {
