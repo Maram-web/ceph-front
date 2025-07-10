@@ -7,7 +7,6 @@ import { VmService } from '../../services/vm.service';
   styleUrls: ['./vm-manager.component.scss']
 })
 export class VmManagerComponent {
-  username: string = 'aya'; // à adapter + tard avec auth
   vmName: string = '';
   osType: string = 'ubuntu';
   size: string = 'small';
@@ -15,21 +14,21 @@ export class VmManagerComponent {
 
   constructor(private vmService: VmService) {}
 
-createVm() {
-  const payload = {
-    username: this.username,
-    vmName: this.vmName, // important : correspond à `getVmName()` dans le backend
-    osType: this.osType,
-    size: this.size,
-    storageType: 'RBD' // optionnel ou "FS" selon le besoin
-  };
+  createVm() {
+    const payload = {
+      vmName: this.vmName,
+      osType: this.osType,
+      size: this.size,
+      storageType: 'RBD' // ou 'FS' selon ton app
+    };
 
-  this.vmService.createVm(payload).subscribe({
-    next: (res: any) => this.resultMessage = res,
-    error: (err: any) => this.resultMessage = '❌ Erreur : ' + err.message
-  });
+    this.vmService.createVm(payload).subscribe({
+      next: (res: any) => this.resultMessage = res,
+      error: (err: any) => this.resultMessage = '❌ Erreur : ' + err.message
+    });
+  }
 }
 
 
    
-}
+

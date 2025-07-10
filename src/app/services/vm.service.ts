@@ -6,9 +6,10 @@ import { Observable } from 'rxjs';
 export class VmService {
   constructor(private http: HttpClient) {}
 
-  getAllVms(username: string): Observable<any[]> {
-    return this.http.get<any[]>(`/api/vm/by-user/${username}`);
-  }
+getAllVms(): Observable<any[]> {
+  return this.http.get<any[]>(`/api/vm/by-user`);
+}
+
 
   createVm(payload: any): Observable<string> {
     return this.http.post('/api/vm/create', payload, { responseType: 'text' });
@@ -21,4 +22,8 @@ export class VmService {
   deleteVm(vmName: string): Observable<string> {
     return this.http.delete(`/api/vm/delete/${vmName}`, { responseType: 'text' });
   }
+  getMyVms(): Observable<any[]> {
+  return this.http.get<any[]>('/api/vm/my-vms');
+}
+
 }

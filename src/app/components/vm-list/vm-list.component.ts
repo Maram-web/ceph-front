@@ -14,12 +14,13 @@ export class VmListComponent implements OnInit {
 
   constructor(private vmService: VmService, private router: Router) {}
 
-  ngOnInit(): void {
-    this.vmService.getAllVms(this.username).subscribe({
+ngOnInit(): void {
+  this.vmService.getAllVms().subscribe({
       next: (data) => this.vms = data,
-      error: (err) => console.error('❌ Erreur de chargement des VMs', err)
-    });
-  }
+    error: (err) => console.error('❌ Erreur de chargement des VMs', err)
+  });
+}
+
 
   goToDetails(vmName: string) {
     this.router.navigate(['/vms', vmName]);

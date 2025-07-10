@@ -28,14 +28,12 @@ export class BucketService {
   }
 
   // ✅ Renvoie : { message: string }
-  uploadFile(bucket: string, file: File): Observable<{ message: string }> {
-    const formData = new FormData();
-    formData.append('file', file);
-    return this.http.post<{ message: string }>(
-      `${this.baseUrl}/s3/${bucket}/upload`, 
-      formData
-    );
-  }
+uploadFile(bucket: string, file: File) {
+  const formData = new FormData();
+  formData.append('file', file);
+  return this.http.post(`${environment.apiUrl}/s3/${bucket}/upload`, formData, { responseType: 'text' });
+}
+
 
   // ✅ Renvoie : { quota: string }
   getRemainingQuota(bucket: string): Observable<{ quota: string }> {

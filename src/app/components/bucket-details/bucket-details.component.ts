@@ -30,14 +30,18 @@ export class BucketDetailsComponent implements OnInit {
     window.open(url, '_blank');
   }
 
-  onDrop(event: any) {
-    const files = event.dataTransfer?.files || event.target.files;
-    if (files.length > 0) {
-      Array.from(files).forEach((file: any) => {
-        this.bucketService.uploadFile(this.bucketName, file).subscribe(() => this.loadFiles());
+onDrop(event: any) {
+  const files = event.dataTransfer?.files || event.target.files;
+  if (files.length > 0) {
+    Array.from(files).forEach((file: any) => {
+      this.bucketService.uploadFile(this.bucketName, file).subscribe({
+        next: () => this.loadFiles(), // ✅ recharge avec noms corrects
+        error: (err) => console.error('Erreur upload', err)
       });
-    }
+    });
   }
+}
+
 
   getFileUrl(filename: string): string {
     return `${environment.apiUrl}/s3/${this.bucketName}/files/${filename}`;
@@ -52,16 +56,16 @@ export class BucketDetailsComponent implements OnInit {
     if (['pdf'].includes(extension)) return 'pdf';
     return 'other';
   }
-
 deleteFileFromBucket(filename: string) {
   if (confirm(`Supprimer le fichier "${filename}" ?`)) {
     this.bucketService.deleteFile(this.bucketName, filename).subscribe({
       next: () => {
-        this.files = this.files.filter(file => file.name !== filename);
+        this.files = this.files.filter(file => file.name !== filename); // ✅ Corrigé ici
       },
       error: (err) => console.error('Erreur suppression fichier', err)
     });
   }
 }
+
 
 }
