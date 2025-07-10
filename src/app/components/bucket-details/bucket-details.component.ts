@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BucketService } from '../../services/bucket.service';
+import { environment } from 'src/environments/environment';
+
 
 @Component({
   selector: 'app-bucket-details',
@@ -41,6 +43,7 @@ export class BucketDetailsComponent implements OnInit {
     window.open(url, '_blank');
   }
 
+  
   onDrop(event: any) {
     const files = event.dataTransfer?.files || event.target.files;
     if (files.length > 0) {
@@ -49,4 +52,18 @@ export class BucketDetailsComponent implements OnInit {
       });
     }
   }
+
+  getImageUrl(filename: string): string {
+  return `${environment.apiUrl}/s3/${this.bucketName}/files/${filename}`;
+}
+getFileType(filename: string): 'image' | 'video' | 'pdf' | 'other' {
+  const extension = filename?.toLowerCase().split('.').pop();
+  if (!extension) return 'other';
+
+  if (['jpg', 'jpeg', 'png', 'gif', 'bmp'].includes(extension)) return 'image';
+  if (['mp4', 'webm', 'ogg'].includes(extension)) return 'video';
+  if (['pdf'].includes(extension)) return 'pdf';
+  return 'other';
+}
+
 }
