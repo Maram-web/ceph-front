@@ -11,7 +11,8 @@
       <!-- Nom -->
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>Nom</th>
-        <td mat-cell *matCellDef="let vm">{{ vm.name }}</td>
+        <td mat-cell *matCellDef="let vm">{{ vm.vmName }}</td>
+
       </ng-container>
 
       <!-- OS -->
@@ -36,10 +37,10 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef>Actions</th>
         <td mat-cell *matCellDef="let vm">
-          <button mat-icon-button color="accent" (click)="goToDetails(vm.name)">
+          <button mat-icon-button color="accent" (click)="goToDetails(vm.vmName)">
             <mat-icon>terminal</mat-icon>
           </button>
-          <button mat-icon-button color="warn" (click)="deleteVm(vm.name)">
+          <button mat-icon-button color="warn" (click)="deleteVm(vm.vmName)">
             <mat-icon>delete</mat-icon>
           </button>
         </td>
