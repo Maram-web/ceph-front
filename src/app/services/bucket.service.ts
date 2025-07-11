@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -9,7 +9,6 @@ export class BucketService {
 
   constructor(private http: HttpClient) {}
 
-  // ✅ Renvoie : { message: string }
   createBucket(name: string): Observable<{ message: string }> {
     return this.http.post<{ message: string }>(
       `${this.baseUrl}/s3/bucket/create?name=${name}`, 
@@ -17,34 +16,37 @@ export class BucketService {
     );
   }
 
-  // ✅ Renvoie liste des buckets comme avant
   getBuckets(): Observable<string[]> {
     return this.http.get<string[]>(`${this.baseUrl}/s3/buckets`);
   }
 
-  // ✅ Renvoie la liste des fichiers du bucket
   listFiles(bucket: string): Observable<string[]> {
     return this.http.get<string[]>(`${this.baseUrl}/s3/${bucket}/files`);
   }
 
-  // ✅ Renvoie : { message: string }
-uploadFile(bucket: string, file: File) {
-  const formData = new FormData();
-  formData.append('file', file);
-  return this.http.post(`${environment.apiUrl}/s3/${bucket}/upload`, formData, { responseType: 'text' });
-}
+  uploadFile(bucketName: string, file: File): Observable<HttpEvent<any>> {
+    const token = localStorage.getItem('token') || '';
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
 
+    const formData = new FormData();
+    formData.append('file', file);
 
-  // ✅ Renvoie : { quota: string }
+    return this.http.post(`${this.baseUrl}/s3/${bucketName}/upload`, formData, {
+      headers,
+      reportProgress: true,
+      observe: 'events'
+    });
+  }
+
   getRemainingQuota(bucket: string): Observable<{ quota: string }> {
     return this.http.get<{ quota: string }>(
       `${this.baseUrl}/s3/${bucket}/quota/remaining`
     );
   }
 
-
-deleteFile(bucketName: string, filename: string) {
-  return this.http.delete(`${environment.apiUrl}/s3/${bucketName}/files/${filename}`);
-}
-
+  deleteFile(bucketName: string, filename: string) {
+    return this.http.delete(`${this.baseUrl}/s3/${bucketName}/files/${filename}`);
+  }
 }

@@ -15,20 +15,36 @@ export class VmManagerComponent {
   constructor(private vmService: VmService) {}
 
   createVm() {
+    if (!this.vmName || !this.osType || !this.size) {
+      this.resultMessage = '❌ Tous les champs sont obligatoires.';
+      return;
+    }
+
     const payload = {
       vmName: this.vmName,
       osType: this.osType,
       size: this.size,
-      storageType: 'RBD' // ou 'FS' selon ton app
+      storageType: 'RBD' // ou 'FS' selon ton besoin
     };
 
+    console.log('📤 Envoi payload VM :', payload);
+
     this.vmService.createVm(payload).subscribe({
-      next: (res: any) => this.resultMessage = res,
-      error: (err: any) => this.resultMessage = '❌ Erreur : ' + err.message
+      next: (res: any) => {
+        console.log('✅ Réponse serveur :', res);
+        this.resultMessage = res;
+        this.resetForm();
+      },
+      error: (err: any) => {
+        console.error('❌ Erreur création VM :', err);
+        this.resultMessage = '❌ Erreur : ' + (err?.error || err.message || 'Inconnue');
+      }
     });
   }
+
+  resetForm() {
+    this.vmName = '';
+    this.osType = 'ubuntu';
+    this.size = 'small';
+  }
 }
-
-
-   
-

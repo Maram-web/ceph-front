@@ -1,15 +1,21 @@
 <mat-card>
-  <mat-card-title>🖥️ VM: {{ vm?.name }}</mat-card-title>
-  <mat-card-content>
-    <p><strong>OS:</strong> {{ vm?.osType }}</p>
-    <p><strong>Taille:</strong> {{ vm?.size }}</p>
-    <p><strong>Date:</strong> {{ vm?.createdAt | date:'short' }}</p>
+  <mat-card-title>🖥️ VM: {{ vm?.vmName || 'Inconnue' }}</mat-card-title>
 
-    <mat-form-field class="w-100">
-      <input matInput [(ngModel)]="command" placeholder="Entrer commande..." (keyup.enter)="executeCommand()" />
+  <mat-card-content>
+    <p><strong>OS :</strong> {{ vm?.osType || 'Non spécifié' }}</p>
+    <p><strong>Taille :</strong> {{ vm?.size || 'Non spécifiée' }}</p>
+    <p><strong>Date :</strong> {{ vm?.createdAt | date:'short' }}</p>
+
+    <mat-form-field appearance="fill" class="w-100 mt-3">
+      <mat-label>Commande à exécuter</mat-label>
+      <input
+        matInput
+        [(ngModel)]="command"
+        placeholder="Entrer commande..."
+        (keyup.enter)="executeCommand()" />
     </mat-form-field>
 
-    <mat-card class="mt-3 bg-dark text-white" *ngIf="output.length > 0">
+    <mat-card *ngIf="output.length > 0" class="mt-3" style="background: #2c2c2c; color: white;">
       <mat-card-content>
         <pre *ngFor="let line of output">{{ line }}</pre>
       </mat-card-content>

@@ -18,12 +18,13 @@ export class BucketDetailsComponent implements OnInit {
     this.bucketName = this.route.snapshot.paramMap.get('name')!;
     this.loadFiles();
   }
+loadFiles() {
+  this.bucketService.listFiles(this.bucketName).subscribe(data => {
+    // Si l'API retourne des strings : transformons-les
+    this.files = data.map((f: string | any) => typeof f === 'string' ? { name: f } : f);
+  });
+}
 
-  loadFiles() {
-    this.bucketService.listFiles(this.bucketName).subscribe(data => {
-      this.files = data;
-    });
-  }
 
   download(file: any) {
     const url = this.getFileUrl(file.name);
