@@ -17,16 +17,34 @@ export class VmDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     const name = this.route.snapshot.paramMap.get('name');
-this.vmService.getVmDetails(name!).subscribe({
+    this.vmService.getVmDetails(name!).subscribe({
       next: (data) => this.vm = data,
       error: (err) => console.error('❌ Erreur chargement VM', err)
     });
   }
 
   executeCommand() {
-    // Simule un terminal, tu peux appeler un service réel ici si dispo
+    if (!this.command.trim()) return;
+
+    const payload = {
+      ip: this.vm.ip,
+      username: 'springuser', // à adapter si tu récupères dynamiquement
+      password: 'springpass',
+      command: this.command
+    };
+
     this.output.push(`$ ${this.command}`);
-    this.output.push(`> Résultat de "${this.command}" ... (fake output)`);
-    this.command = '';
+
+    this.vmService.executeRealCommand(payload).subscribe({
+      next: (result) => {
+        this.output.push(result);
+        this.command = '';
+      },
+      error: (err) => {
+        const message = err.error || '❌ Erreur inconnue.';
+        this.output.push(message);
+        this.command = '';
+      }
+    });
   }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment'; // Import de l'URL API
+import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class VmService {
@@ -10,33 +10,34 @@ export class VmService {
   constructor(private http: HttpClient) {}
 
   getAllVms(): Observable<any[]> {
-    console.log('📥 Requête pour récupérer toutes les VMs de l’utilisateur');
     return this.http.get<any[]>(`${this.apiUrl}/vm/by-user`);
   }
 
   createVm(payload: any): Observable<string> {
-    console.log('📤 Création de VM avec :', payload);
     return this.http.post(`${this.apiUrl}/vm/create`, payload, { responseType: 'text' });
   }
 
   getVmDetails(name: string): Observable<any> {
-    console.log(`📥 Récupération des détails de la VM : ${name}`);
     return this.http.get(`${this.apiUrl}/vm/details/${name}`);
   }
 
   deleteVm(vmName: string): Observable<string> {
-    console.log(`🗑️ Suppression de la VM : ${vmName}`);
     return this.http.delete(`${this.apiUrl}/vm/delete/${vmName}`, { responseType: 'text' });
   }
 
   getMyVms(): Observable<any[]> {
-    console.log('📥 Récupération des VMs personnelles');
     return this.http.get<any[]>(`${this.apiUrl}/vm/my-vms`);
   }
-  executeCommand(vmName: string, command: string): Observable<string> {
-  return this.http.post(`http://localhost:PORT/api/vm/${vmName}/exec`, { command }, {
-    responseType: 'text'
-  });
-}
 
+  // ✅ Utilise l'URL d'environnement ici
+  executeRealCommand(payload: {
+    ip: string;
+    username: string;
+    password: string;
+    command: string;
+  }) {
+    return this.http.post(`${this.apiUrl}/vm/execute`, payload, {
+      responseType: 'text'
+    });
+  }
 }
