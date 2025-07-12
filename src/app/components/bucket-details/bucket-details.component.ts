@@ -67,12 +67,13 @@ deleteFileFromBucket(filename: string) {
   if (confirm(`Supprimer le fichier "${filename}" ?`)) {
     this.bucketService.deleteFile(this.bucketName, filename).subscribe({
       next: () => {
-        this.files = this.files.filter(file => file.name !== filename); // ✅ Corrigé ici
+        this.loadFiles(); // ✅ Recharge la liste après suppression
       },
       error: (err) => console.error('Erreur suppression fichier', err)
     });
   }
 }
+
 
 
 }
