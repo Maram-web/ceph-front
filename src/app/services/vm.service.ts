@@ -33,4 +33,10 @@ export class VmService {
     console.log('📥 Récupération des VMs personnelles');
     return this.http.get<any[]>(`${this.apiUrl}/vm/my-vms`);
   }
+  executeCommand(vmName: string, command: string): Observable<string> {
+  return this.http.post(`http://localhost:PORT/api/vm/${vmName}/exec`, { command }, {
+    responseType: 'text'
+  });
+}
+
 }

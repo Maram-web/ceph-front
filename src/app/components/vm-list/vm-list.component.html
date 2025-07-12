@@ -11,7 +11,8 @@
       <!-- Nom -->
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>Nom</th>
-        <td mat-cell *matCellDef="let vm">{{ vm.vmName }}</td>
+        <td mat-cell *matCellDef="let vm">{{ vm.displayName || vm.vmName }}</td>
+
 
       </ng-container>
 

@@ -11,10 +11,13 @@ export class AppComponent implements OnInit {
 
   constructor(private router: Router) {}
 
-  ngOnInit(): void {
-    const user = localStorage.getItem('user');
-    if (!user) {
-      this.router.navigate(['/login']);
-    }
+ngOnInit(): void {
+  const user = localStorage.getItem('user');
+  const currentUrl = this.router.url;
+
+  if (!user && !currentUrl.startsWith('/authentication')) {
+    this.router.navigate(['/authentication/login']);
   }
+}
+
 }
