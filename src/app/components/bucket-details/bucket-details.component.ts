@@ -26,11 +26,6 @@ loadFiles() {
 }
 
 
-  download(file: any) {
-    const url = this.getFileUrl(file.name);
-    window.open(url, '_blank');
-  }
-
 onDrop(event: any) {
   const files = event.dataTransfer?.files || event.target.files;
   if (files.length > 0) {
@@ -47,16 +42,27 @@ onDrop(event: any) {
   getFileUrl(filename: string): string {
     return `${environment.apiUrl}/s3/${this.bucketName}/files/${filename}`;
   }
+download(file: any) {
+  const url = this.getFileUrl(file.name);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = file.name;
+  link.click();
+}
+getFileType(filename: string): 'image' | 'video' | 'pdf' | 'other' {
+  if (!filename) return 'other';
 
-  getFileType(filename: string): 'image' | 'video' | 'pdf' | 'other' {
-    const extension = filename?.toLowerCase().split('.').pop();
-    if (!extension) return 'other';
+  const parts = filename.toLowerCase().split('.');
+  const extension = parts.length > 1 ? parts.pop() : null;
 
-    if (['jpg', 'jpeg', 'png', 'gif', 'bmp'].includes(extension)) return 'image';
-    if (['mp4', 'webm', 'ogg'].includes(extension)) return 'video';
-    if (['pdf'].includes(extension)) return 'pdf';
-    return 'other';
-  }
+  if (!extension) return 'other';
+
+  if (['jpg', 'jpeg', 'png', 'gif', 'bmp'].includes(extension)) return 'image';
+  if (['mp4', 'webm', 'ogg'].includes(extension)) return 'video';
+  if (['pdf'].includes(extension)) return 'pdf';
+  return 'other';
+}
+
 deleteFileFromBucket(filename: string) {
   if (confirm(`Supprimer le fichier "${filename}" ?`)) {
     this.bucketService.deleteFile(this.bucketName, filename).subscribe({
