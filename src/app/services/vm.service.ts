@@ -17,8 +17,9 @@ export class VmService {
 
   // ✅ Alias optionnel si tu veux l'utiliser ailleurs
 getAllVms(): Observable<any[]> {
-  return this.http.get<any[]>(`${this.apiUrl}/my-vms`);
+  return this.http.get<any[]>(`${this.apiUrl}/vm/my-vms`);
 }
+
 
   createVm(payload: any): Observable<string> {
     console.log('📤 Création de VM avec :', payload);
