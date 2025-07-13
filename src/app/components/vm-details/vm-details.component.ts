@@ -24,6 +24,7 @@ export class VmDetailsComponent implements OnInit {
   }
 
   executeCommand() {
+    
     if (!this.command.trim()) return;
 
     const payload = {

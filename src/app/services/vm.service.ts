@@ -16,9 +16,9 @@ export class VmService {
   }
 
   // ✅ Alias optionnel si tu veux l'utiliser ailleurs
-  getAllVms(): Observable<any[]> {
-    return this.getMyVms();
-  }
+getAllVms(): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}/my-vms`);
+}
 
   createVm(payload: any): Observable<string> {
     console.log('📤 Création de VM avec :', payload);
@@ -29,11 +29,11 @@ export class VmService {
     console.log(`📥 Récupération des détails de la VM : ${name}`);
     return this.http.get(`${this.apiUrl}/vm/details/${name}`);
   }
+startVm(vmName: string): Observable<string> {
+  return this.http.post(`${this.apiUrl}/start/${vmName}`, {}, { responseType: 'text' });
+}
 
-  deleteVm(vmName: string): Observable<string> {
-    console.log(`🗑️ Suppression de la VM : ${vmName}`);
-    return this.http.delete(`${this.apiUrl}/vm/delete/${vmName}`, { responseType: 'text' });
-  }
+
 
   // ✅ Exécution de commande réelle
   executeRealCommand(payload: {
@@ -43,7 +43,16 @@ export class VmService {
     command: string;
   }) {
     return this.http.post(`${this.apiUrl}/vm/execute`, payload, {
+
       responseType: 'text'
     });
   }
+deleteVm(vmName: string): Observable<string> {
+      console.log(`🗑️ Suppression de la VM : ${vmName}`);
+
+  return this.http.delete(`${this.apiUrl}/delete/${vmName}`, { responseType: 'text' });
+}
+
+
+
 }

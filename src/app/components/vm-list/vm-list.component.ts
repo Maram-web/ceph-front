@@ -11,10 +11,14 @@ export class VmListComponent implements OnInit {
   vms: any[] = [];
   username: string = 'aya';
 
-  // ❌ CORRECTION: "construct or" → "constructor"
   constructor(private vmService: VmService, private router: Router) {}
 
   ngOnInit(): void {
+    this.loadMyVMs(); // ✅ Appelle la bonne méthode
+  }
+
+  // ✅ Méthode de rechargement des VMs après suppression
+  loadMyVMs(): void {
     this.vmService.getAllVms().subscribe({
       next: (data) => {
         this.vms = data;
@@ -38,12 +42,32 @@ export class VmListComponent implements OnInit {
       this.vmService.deleteVm(vmName).subscribe({
         next: (res) => {
           console.log(res);
-          this.vms = this.vms.filter(vm => vm.vmName !== vmName);
+          alert(res);
+          this.loadMyVMs(); // 🔁 recharge après suppression
         },
         error: (err) => {
-          console.error('❌ Erreur suppression', err);
+          console.error(err);
+          alert("❌ Erreur lors de la suppression !");
         }
       });
     }
   }
+
+
+
+  startVm(vmName: string) {
+  this.vmService.startVm(vmName).subscribe({
+    next: (res) => {
+      alert(res);
+      this.loadMyVMs(); // recharge après démarrage
+    },
+    error: (err) => {
+      console.error(err);
+      alert("❌ Erreur lors du démarrage !");
+    }
+  });
+}
+displayedColumns: string[] = ['vmName', 'size', 'storageType', 'createdAt', 'status', 'action'];
+
+
 }
