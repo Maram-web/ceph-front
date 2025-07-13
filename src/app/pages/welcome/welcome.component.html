@@ -1,0 +1,57 @@
+<section class="hero">
+
+  <!-- Carousel en haut -->
+  <mat-tab-group animationDuration="600ms" [(selectedIndex)]="selectedIndex">
+    <mat-tab *ngFor="let img of carouselImages">
+      <ng-template mat-tab-label></ng-template>
+      <img [src]="img" class="carousel-img" />
+    </mat-tab>
+  </mat-tab-group>
+
+  <!-- Texte maintenant après les images -->
+  <div class="hero-content">
+    <h1>A Cloud to Empower Your Infrastructure ☁️</h1>
+    <p>Let’s start your training journey powered by Ceph & Kubernetes!</p>
+    <button mat-flat-button color="primary" routerLink="/login">Let’s Start</button>
+  </div>
+
+
+
+</section>
+<div class="products">
+  <div
+    class="product-card"
+    *ngFor="let product of products"
+    (click)="navigateToProduct(product)"
+  >
+    <div class="header">
+      <mat-icon class="icon">{{ product.icon }}</mat-icon>
+      <h3>{{ product.title }}</h3>
+    </div>
+
+    <div class="divider"></div>
+
+    <p>{{ product.description }}</p>
+
+    <a class="learn-more">
+      Learn more
+      <mat-icon>arrow_forward</mat-icon>
+    </a>
+  </div>
+</div>
+
+
+
+
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="partners">
+  <span>Partenaires :</span>
+  <img src="assets/images/esprit-logo.png" alt="Esprit" class="partner-logo" />
+  <img src="assets/images/3s-logo.png" alt="3S" class="partner-logo" />
+</div>
+
+<p>Contact: <a href="mailto:support&#64;yourcloud.com">support&#64;yourcloud.com</a></p>
+  <p>© 2025 Cloud Training — All Rights Reserved</p>
+</footer>

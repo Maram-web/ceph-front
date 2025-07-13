@@ -1,0 +1,97 @@
+.top-banner {
+  background: rgba(102, 51, 153, 0.08); // violet très clair
+  color: #663399;
+  font-size: 13px;
+  text-align: center;
+  padding: 4px 0;
+  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+
+.top-banner img {
+  height: 16px;
+  vertical-align: middle;
+  opacity: 0.9;
+}
+
+.login-inspired-toolbar {
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  height: 72px;
+  display: flex;
+  justify-content: center;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.toolbar-content {
+  max-width: 1300px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 32px;
+}
+
+.menu a[mat-button], .menu button[mat-button] {
+  color: #1f2937;
+  font-size: 15px;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0.4px;
+  padding: 8px 16px;
+}
+
+.auth-buttons a[mat-button] {
+  color: #1f2937;
+  font-weight: 500;
+}
+
+.auth-buttons button[mat-flat-button] {
+  background-color: #6a0dad !important; // violet pur
+  color: white !important;
+  padding: 6px 24px;
+  border-radius: 26px;
+  font-weight: 600;
+  font-size: 14px;
+}
+.logo {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  font-family: 'Montserrat', sans-serif;
+  color: #651fdd;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.logo:hover {
+  color: #512da8;
+  text-decoration: none;
+}
+.user-dropdown {
+  display: flex;
+  align-items: center;
+
+  button {
+    font-weight: 500;
+    color: #1f2937;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .avatar {
+    height: 28px;
+    width: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  mat-icon {
+    font-size: 20px;
+  }
+}

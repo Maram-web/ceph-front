@@ -1,0 +1,9 @@
+.main-content {
+  width: 100%;
+  min-height: calc(100vh - 64px); // en dessous de la toolbar
+  padding: 0;
+  margin: 0;
+}
+.spacer {
+  flex: 1 1 auto;
+}

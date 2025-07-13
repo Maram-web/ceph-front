@@ -11,6 +11,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { UploadCloud } from 'angular-feather/icons';
+import { MatMenuModule } from '@angular/material/menu';
+
+import { BlankLayoutModule } from './layouts/blank-layout/blank-layout.module';
 
 
 
@@ -36,22 +39,26 @@ import { BucketDetailsComponent } from './components/bucket-details/bucket-detai
 import { VmManagerComponent } from './components/vm-manager/vm-manager.component';
 import { VmListComponent } from './components/vm-list/vm-list.component';
 import { VmDetailsComponent } from './components/vm-details/vm-details.component';
-
+import { WelcomeComponent } from './pages/welcome/welcome.component';
+import { WelcomeModule } from './pages/welcome.module';
+import { Home2Component } from './home2/home2.component';
 @NgModule({
   declarations: [
     AppComponent,
-    FullComponent,  
-       LoginComponent,
-      
-       UserStorageComponent, 
-       BucketManagerComponent,
-       BucketDetailsComponent,
-       VmManagerComponent ,
-       VmListComponent,
-VmDetailsComponent
+    FullComponent,
+    LoginComponent,
+    UserStorageComponent,
+    BucketManagerComponent,
+    BucketDetailsComponent,
+    VmManagerComponent,
+    VmListComponent,
+    VmDetailsComponent,
+    Home2Component
     
+    // 👇 PAS WelcomeComponent ici car il est déjà dans WelcomeModule
   ],
   imports: [
+    RegisterComponent,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -60,24 +67,29 @@ VmDetailsComponent
     DashboardModule,
     ComponentsModule,
     FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+
+    // Material
     MatFormFieldModule,
-     MatInputModule,
-      MatButtonModule,
-       RegisterComponent,
-       ReactiveFormsModule ,
-       HttpClientModule,
-           MatCardModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCardModule,
     MatTableModule,
     MatIconModule,
     MatSelectModule,
-MatOptionModule, 
-FeatherModule.pick({
-  UploadCloud,
-})
+    MatOptionModule,
+    MatMenuModule,
 
+    // Layouts + Pages
+    BlankLayoutModule,
+    WelcomeModule,
+
+    // Feather icons spécifiques
+    FeatherModule.pick({ UploadCloud })
   ],
   providers: [
-        {
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true

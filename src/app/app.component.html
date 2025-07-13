@@ -1,1 +1,57 @@
+<!-- Affiche la toolbar seulement si ce n'est pas une page d'auth -->
+<ng-container *ngIf="!isAuthPage">
+  <mat-toolbar class="login-inspired-toolbar">
+    <div class="toolbar-content">
+      <a routerLink="/" class="logo">Cloud Training</a>
+
+      <div class="menu">
+        <a mat-button routerLink="/welcome">Home</a>
+        <button mat-button [matMenuTriggerFor]="productMenu">
+          Products <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+        <mat-menu #productMenu="matMenu">
+          <button mat-menu-item (click)="goToLogin('/vm')">
+            <mat-icon>desktop_windows</mat-icon> Créer une VM
+          </button>
+          <button mat-menu-item (click)="goToLogin('/bucket')">
+            <mat-icon>cloud</mat-icon> Gérer les Buckets
+          </button>
+        </mat-menu>
+        <a mat-button>Pricing</a>
+        <a mat-button>About</a>
+      </div>
+
+      <!-- Si connecté -->
+      <div *ngIf="currentUser; else guest" class="user-dropdown">
+        <button mat-button [matMenuTriggerFor]="userMenu">
+          <img src="assets/images/user2.webp" class="avatar" alt="user" />
+          <span>Hi,</span> <strong>{{ currentUser.username }}</strong>
+          <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+        <mat-menu #userMenu="matMenu">
+          <button mat-menu-item>Profile</button>
+          <button mat-menu-item (click)="logout()">Logout</button>
+        </mat-menu>
+      </div>
+
+      <!-- Sinon invité -->
+      <ng-template #guest>
+        <div class="auth-buttons">
+          <a mat-button routerLink="/authentication/login">Log in</a>
+          <button mat-flat-button routerLink="/authentication/register">Sign up</button>
+        </div>
+      </ng-template>
+    </div>
+  </mat-toolbar>
+
+
+</ng-container>
+
+
+  <!-- 🇵🇸 Palestine Banner -->
+  <div class="top-banner">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/00/Flag_of_Palestine.svg" alt="Palestine" />
+    <span>I stand with Palestine</span>
+  </div>
+
 <router-outlet></router-outlet>

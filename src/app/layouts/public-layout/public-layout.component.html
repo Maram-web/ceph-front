@@ -1,0 +1,15 @@
+<p>public-layout works!</p>
+<!-- Simple layout avec barre en haut + contenu -->
+<mat-toolbar color="primary" class="mat-elevation-z2">
+  <span>🌐 Cloud Training</span>
+  <span class="spacer"></span>
+  <a mat-button routerLink="/welcome">Home</a>
+  <a mat-button (click)="goToLogin('/vm')">Products</a>
+  <a mat-button>Pricing</a>
+  <a mat-button>About</a>
+</mat-toolbar>
+
+<!-- Zone principale -->
+<main class="main-content">
+  <router-outlet></router-outlet>
+</main>

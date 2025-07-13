@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { UserService } from './auth/services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -8,16 +10,47 @@ import { Router } from '@angular/router';
 })
 export class AppComponent implements OnInit {
   title = 'flexy-angular';
+  currentUser: any = null;
+  isAuthPage: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private userService: UserService
+  ) {}
 
-ngOnInit(): void {
-  const user = localStorage.getItem('user');
-  const currentUrl = this.router.url;
+  ngOnInit(): void {
+    // 🔐 Récupère l'utilisateur courant
+    this.userService.getCurrentUser().subscribe({
+      next: (user) => this.currentUser = user,
+      error: () => this.currentUser = null
+    });
 
-  if (!user && !currentUrl.startsWith('/authentication')) {
+this.router.events.pipe(
+  filter(event => event instanceof NavigationEnd)
+).subscribe((event) => {
+  const nav = event as NavigationEnd;
+  const url = nav.urlAfterRedirects;
+
+  this.isAuthPage =
+    url.includes('/authentication/login') ||
+    url.includes('/authentication/register') ||
+    url === '/home' ||
+    url === '/home2' ||
+    url === '/vms'
+    || url == '/spaces' ;
+});
+
+  }
+
+  goToLogin(targetRoute: string = '/dashboard') {
+    this.router.navigate(['/authentication/login'], {
+      queryParams: { redirect: targetRoute }
+    });
+  }
+
+  logout() {
+    localStorage.clear();
+    this.currentUser = null;
     this.router.navigate(['/authentication/login']);
   }
-}
-
 }
