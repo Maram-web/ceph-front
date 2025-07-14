@@ -51,7 +51,7 @@ startVm(vmName: string): Observable<string> {
 deleteVm(vmName: string): Observable<string> {
       console.log(`🗑️ Suppression de la VM : ${vmName}`);
 
-  return this.http.delete(`${this.apiUrl}/delete/${vmName}`, { responseType: 'text' });
+  return this.http.delete(`${this.apiUrl}/vm/delete/${vmName}`, { responseType: 'text' });
 }
 
 

@@ -1,32 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
-
-interface sidebarMenu {
-  link: string;
-  icon: string;
-  menu: string;
-}
+import { UserService } from 'src/app/auth/services/user.service'; // ⬅️ important
 
 @Component({
   selector: 'app-full',
   templateUrl: './full.component.html',
   styleUrls: ['./full.component.scss']
 })
-export class FullComponent {
-  search: boolean = false;
+export class FullComponent implements OnInit {
+  search = false;
+  currentUser: any = null;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches),
-      shareReplay()
-    );
+    .pipe(map(result => result.matches), shareReplay());
 
   routerActive: string = "activelink";
 
-  sidebarMenu: sidebarMenu[] = [
+  sidebarMenu = [
 { menu: 'Upload', icon: 'upload-cloud', link: '/upload' }
 ,
     { link: "/home", icon: "home", menu: "Dashboard" },
@@ -56,13 +49,19 @@ export class FullComponent {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private router: Router
+    private router: Router,
+    private userService: UserService // ⬅️ injection du service
   ) {}
 
-logout() {
-  console.log('Logout called');  // ← AJOUTE ÇA
-  localStorage.clear();
-  this.router.navigate(['/authentication/login']);
-}
+  ngOnInit(): void {
+    this.userService.getCurrentUser().subscribe({
+      next: (user) => this.currentUser = user,
+      error: () => this.currentUser = null
+    });
+  }
 
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['/authentication/login']);
+  }
 }

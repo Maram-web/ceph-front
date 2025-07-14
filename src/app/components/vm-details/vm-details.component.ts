@@ -12,38 +12,67 @@ export class VmDetailsComponent implements OnInit {
   vm: any;
   command: string = '';
   output: string[] = [];
+  errorMessage: string = '';
 
-  constructor(private route: ActivatedRoute, private vmService: VmService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private vmService: VmService
+  ) {}
 
   ngOnInit(): void {
     const name = this.route.snapshot.paramMap.get('name');
-    this.vmService.getVmDetails(name!).subscribe({
-      next: (data) => this.vm = data,
-      error: (err) => console.error('❌ Erreur chargement VM', err)
+    if (!name) {
+      console.error('⚠️ Aucun nom de VM fourni dans l’URL.');
+      this.errorMessage = 'Aucun nom de VM fourni.';
+      return;
+    }
+
+    console.log(`📡 Chargement des détails pour la VM '${name}'`);
+    this.vmService.getVmDetails(name).subscribe({
+      next: (data) => {
+        this.vm = data;
+        console.log('✅ Détails de la VM chargés avec succès :', data);
+      },
+      error: (err) => {
+        console.error('❌ Erreur lors du chargement des détails de la VM :', err);
+        const msg = typeof err.error === 'string' ? err.error : 'Erreur de chargement inconnue.';
+        this.errorMessage = msg;
+      }
     });
   }
 
-  executeCommand() {
-    
-    if (!this.command.trim()) return;
+  executeCommand(): void {
+    if (!this.command.trim()) {
+      console.warn('⚠️ Commande vide ignorée.');
+      return;
+    }
+
+    if (!this.vm || !this.vm.ip) {
+      console.error('❌ Impossible d’exécuter la commande : VM ou IP manquante.');
+      this.output.push('❌ Impossible d’exécuter la commande : VM ou IP manquante.');
+      return;
+    }
 
     const payload = {
       ip: this.vm.ip,
-      username: 'springuser', // à adapter si tu récupères dynamiquement
+      username: 'springuser', // 📝 À adapter dynamiquement si besoin
       password: 'springpass',
       command: this.command
     };
 
     this.output.push(`$ ${this.command}`);
+    console.log('🚀 Envoi de la commande SSH :', payload);
 
     this.vmService.executeRealCommand(payload).subscribe({
-      next: (result) => {
+      next: (result: string) => {
+        console.log('✅ Réponse de la commande SSH :', result);
         this.output.push(result);
         this.command = '';
       },
       error: (err) => {
-        const message = err.error || '❌ Erreur inconnue.';
-        this.output.push(message);
+        console.error('❌ Erreur SSH :', err);
+        const msg = typeof err.error === 'string' ? err.error : '❌ Erreur inconnue lors de l’exécution.';
+        this.output.push(msg);
         this.command = '';
       }
     });
