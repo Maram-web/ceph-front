@@ -42,39 +42,43 @@ export class VmDetailsComponent implements OnInit {
   }
 
   executeCommand(): void {
-    if (!this.command.trim()) {
-      console.warn('⚠️ Commande vide ignorée.');
-      return;
-    }
-
-    if (!this.vm || !this.vm.ip) {
-      console.error('❌ Impossible d’exécuter la commande : VM ou IP manquante.');
-      this.output.push('❌ Impossible d’exécuter la commande : VM ou IP manquante.');
-      return;
-    }
-
-    const payload = {
-      ip: this.vm.ip,
-      username: 'springuser', // 📝 À adapter dynamiquement si besoin
-      password: 'springpass',
-      command: this.command
-    };
-
-    this.output.push(`$ ${this.command}`);
-    console.log('🚀 Envoi de la commande SSH :', payload);
-
-    this.vmService.executeRealCommand(payload).subscribe({
-      next: (result: string) => {
-        console.log('✅ Réponse de la commande SSH :', result);
-        this.output.push(result);
-        this.command = '';
-      },
-      error: (err) => {
-        console.error('❌ Erreur SSH :', err);
-        const msg = typeof err.error === 'string' ? err.error : '❌ Erreur inconnue lors de l’exécution.';
-        this.output.push(msg);
-        this.command = '';
-      }
-    });
+  if (!this.command.trim()) {
+    console.warn('⚠️ Commande vide ignorée.');
+    return;
   }
+
+  if (!this.vm || !this.vm.ip) {
+    console.error('❌ Impossible d’exécuter la commande : VM ou IP manquante.');
+    this.output.push('❌ Impossible d’exécuter la commande : VM ou IP manquante.');
+    return;
+  }
+
+  // 🔐 Récupère automatiquement les bons identifiants selon l’IP
+  const creds = this.vmService.getCredentialsForIp(this.vm.ip);
+
+  const payload = {
+    ip: this.vm.ip,
+    username: creds.username,
+    password: creds.password,
+    command: this.command
+  };
+
+  this.output.push(`$ ${this.command}`);
+  console.log('🚀 Envoi de la commande SSH :', payload);
+
+  this.vmService.executeRealCommand(payload).subscribe({
+    next: (result: string) => {
+      console.log('✅ Réponse de la commande SSH :', result);
+      this.output.push(result);
+      this.command = '';
+    },
+    error: (err) => {
+      console.error('❌ Erreur SSH :', err);
+      const msg = typeof err.error === 'string' ? err.error : '❌ Erreur inconnue lors de l’exécution.';
+      this.output.push(msg);
+      this.command = '';
+    }
+  });
+}
+
 }
