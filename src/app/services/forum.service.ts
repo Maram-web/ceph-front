@@ -17,7 +17,6 @@ export class ForumService {
 
   constructor(private http: HttpClient) {}
 
-  // 📨 Publier un message
   postMessage(message: string): Observable<string> {
     const token = localStorage.getItem('token') || '';
     const headers = new HttpHeaders({
@@ -30,25 +29,17 @@ export class ForumService {
     });
   }
 
-  // 📬 Récupérer tous les messages
-  getAllMessages(): Observable<string[]> {
+  // ✅ Corrigé : récupération des posts + commentaires
+  getAllMessagesAndComments(): Observable<ForumPost[]> {
     const token = localStorage.getItem('token') || '';
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
     });
 
-    return this.http.get<string[]>(`${this.apiUrl}/messages`, { headers });
+    return this.http.get<ForumPost[]>(`${this.apiUrl}/messages`, { headers });
   }
 
-
-
-getAllMessagesAndComments(): Observable<ForumPost[]> {
-  return this.http.get<ForumPost[]>(`${this.apiUrl}/messages`);
-}
-postComment(postFile: string, comment: string): Observable<any> {
-  return this.http.post(`${this.apiUrl}/comment`, { postFile, comment });
-}
-
-
-
+  postComment(postFile: string, comment: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/comment`, { postFile, comment });
+  }
 }

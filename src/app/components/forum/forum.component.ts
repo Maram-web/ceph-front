@@ -30,10 +30,16 @@ export class ForumComponent implements OnInit {
   post(): void {
     if (!this.newMessage.trim()) return;
 
-    this.forumService.postMessage(this.newMessage).subscribe(() => {
-      this.newMessage = '';
-      this.refreshMessages();
-    });
+this.forumService.postMessage(this.newMessage).subscribe({
+  next: () => {
+    this.newMessage = '';
+    this.refreshMessages();
+  },
+  error: (err) => {
+    console.error('Erreur lors de l’envoi du message :', err);
+  }
+});
+
   }
 
   comment(post: ForumPost): void {
@@ -42,7 +48,8 @@ export class ForumComponent implements OnInit {
     this.forumService.postComment(post.filename, post.newComment).subscribe(() => {
       post.newComment = '';
       this.refreshMessages();
-    });
+    },
+  );
   }
 
   refreshMessages(): void {
