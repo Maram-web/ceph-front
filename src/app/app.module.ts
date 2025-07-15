@@ -42,6 +42,8 @@ import { VmDetailsComponent } from './components/vm-details/vm-details.component
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { WelcomeModule } from './pages/welcome.module';
 import { Home2Component } from './home2/home2.component';
+import { CephfsComponent } from './components/cephfs/cephfs.component';
+import { ForumComponent } from './components/forum/forum.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +55,9 @@ import { Home2Component } from './home2/home2.component';
     VmManagerComponent,
     VmListComponent,
     VmDetailsComponent,
-    Home2Component
+    Home2Component,
+    CephfsComponent,
+    ForumComponent
     
     // 👇 PAS WelcomeComponent ici car il est déjà dans WelcomeModule
   ],

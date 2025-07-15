@@ -20,16 +20,20 @@ export class FullComponent implements OnInit {
   routerActive: string = "activelink";
 
   sidebarMenu = [
-{ menu: 'Upload', icon: 'upload-cloud', link: '/upload' }
-,
+{ menu: 'Upload', icon: 'upload-cloud', link: '/upload' },
+ { menu: 'Spaces', icon: 'hard-drive', link: 'spaces' },
+  { menu: 'Manage VMs', icon: 'cpu', link: 'vms' },
+    { menu: 'Cephs', icon: 'database', link: '/cephfs' }, // 👈 AJOUT
+{ link: "/home2", icon: "activity", menu: "New Home" },
+{ link: "forum", icon: "chat", menu: "forum "},
     { link: "/home", icon: "home", menu: "Dashboard" },
-   // { link: "/button", icon: "disc", menu: "Buttons" },
-    //{ link: "/forms", icon: "layout", menu: "Forms" },
-    //{ link: "/alerts", icon: "info", menu: "Alerts" },
-    //{ link: "/grid-list", icon: "file-text", menu: "Grid List" },
-    //{ link: "/menu", icon: "menu", menu: "Menus" },
-    //{ link: "/table", icon: "grid", menu: "Tables" },
-   // { link: "/expansion", icon: "divide-circle", menu: "Expansion Panel" },
+    { link: "/button", icon: "disc", menu: "Buttons" },
+    { link: "/forms", icon: "layout", menu: "Forms" },
+    { link: "/alerts", icon: "info", menu: "Alerts" },
+    { link: "/grid-list", icon: "file-text", menu: "Grid List" },
+    { link: "/menu", icon: "menu", menu: "Menus" },
+    { link: "/table", icon: "grid", menu: "Tables" },
+   { link: "/expansion", icon: "divide-circle", menu: "Expansion Panel" },
    // { link: "/chips", icon: "award", menu: "Chips" },
     //{ link: "/tabs", icon: "list", menu: "Tabs" },
     //{ link: "/progress", icon: "bar-chart-2", menu: "Progress Bar" },
@@ -40,9 +44,9 @@ export class FullComponent implements OnInit {
     //{ link: "/slider", icon: "sliders", menu: "Slider" },
   //  { link: "/slide-toggle", icon: "layers", menu: "Slide Toggle" },
    //   { menu: 'User Storage', link: '/storage', icon: 'hard-drive' },
-        { menu: 'Spaces', icon: 'hard-drive', link: 'spaces' },
-  { menu: 'Manage VMs', icon: 'cpu', link: 'vms' },
-{ link: "/home2", icon: "activity", menu: "New Home" },
+       
+
+
 
 
   ];

@@ -1,0 +1,32 @@
+<div class="cephfs-wrapper">
+  <h2>📂 Espace de Partage - CephFS</h2>
+
+  <!-- Créer un dossier -->
+  <div class="action-box">
+    <input [(ngModel)]="newFolder" placeholder="Nom du dossier" />
+    <button (click)="createFolder()">Créer Dossier</button>
+  </div>
+
+  <!-- Créer un fichier -->
+  <div class="action-box">
+    <input [(ngModel)]="newFileName" placeholder="Nom du fichier (ex: notes.txt)" />
+    <textarea [(ngModel)]="fileContent" placeholder="Contenu du fichier..."></textarea>
+    <button (click)="createFile()">Créer Fichier</button>
+  </div>
+
+  <!-- Liste des fichiers -->
+  <div class="file-list">
+    <h3>📁 Fichiers disponibles :</h3>
+    <ul>
+      <li *ngFor="let file of files" (click)="readFile(file)">
+        📝 {{ file }}
+      </li>
+    </ul>
+  </div>
+
+  <!-- Contenu d’un fichier -->
+  <div class="file-content" *ngIf="selectedFileContent">
+    <h3>📖 Contenu :</h3>
+    <pre>{{ selectedFileContent }}</pre>
+  </div>
+</div>

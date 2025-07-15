@@ -1,0 +1,54 @@
+<mat-card class="forum-card">
+  <div class="forum-header">
+    <h2>🗨️ Forum - Espace Partagé (CephFS)</h2>
+    <button mat-icon-button color="accent" (click)="refreshMessages()" matTooltip="Rafraîchir les messages">
+      <mat-icon>refresh</mat-icon>
+    </button>
+  </div>
+
+  <mat-card-content>
+    <!-- Poster un message principal -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>💬 Nouveau message</mat-label>
+      <textarea matInput [(ngModel)]="newMessage" rows="4"></textarea>
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="post()" [disabled]="!newMessage.trim()">Publier</button>
+
+    <!-- Liste des posts + commentaires -->
+    <div class="messages-section" *ngIf="forumPosts.length; else noMessages">
+      <h4>📋 Messages :</h4>
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let post of forumPosts">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{ post.post }}
+            </mat-panel-title>
+             <mat-panel-description>
+    🕒 {{ post.date | date:'short' }}
+  </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <div *ngIf="post.comments?.length">
+            <mat-list dense>
+              <mat-list-item *ngFor="let c of post.comments">
+                <mat-icon mat-list-icon color="accent">comment</mat-icon>
+                <p mat-line>{{ c }}</p>
+              </mat-list-item>
+            </mat-list>
+          </div>
+
+          <!-- Champ commentaire -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>↳ Répondre</mat-label>
+            <textarea matInput [(ngModel)]="post.newComment" rows="2" placeholder="Votre commentaire..."></textarea>
+          </mat-form-field>
+          <button mat-button color="accent" (click)="comment(post)" [disabled]="!post.newComment?.trim()">Envoyer</button>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+
+    <ng-template #noMessages>
+      <p class="empty-message">Aucun message encore 💤</p>
+    </ng-template>
+  </mat-card-content>
+</mat-card>

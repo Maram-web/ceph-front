@@ -36,6 +36,8 @@ import { WelcomeComponent } from './pages/welcome/welcome.component';
 
 import { BlankLayoutComponent } from './layouts/blank-layout/blank-layout.component'; // ← Vérifie que ce chemin est correct
 import { Home2Component } from './home2/home2.component';
+import { CephfsComponent } from './components/cephfs/cephfs.component';
+import { ForumComponent } from './components/forum/forum.component';
 
 const routes: Routes = [
   // 🔓 Public layout (sans sidebar)
@@ -62,7 +64,11 @@ const routes: Routes = [
     path: '',
     component: FullComponent,
     children: [
-          { path: 'home2', component: Home2Component },
+      { path: 'cephfs', component: CephfsComponent },
+
+       { path: 'forum', component: ForumComponent },
+
+      { path: 'home2', component: Home2Component },
       { path: 'home', component: DashboardComponent },
       { path: 'alerts', component: AlertsComponent },
       { path: 'forms', component: FormsComponent },
