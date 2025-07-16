@@ -102,7 +102,7 @@ export class LoginComponent implements OnInit {
       next: (token: string) => {
         localStorage.setItem('token', token);
 
-        const redirectPath = this.route.snapshot.queryParamMap.get('redirect') || '/dashboard';
+        const redirectPath = this.route.snapshot.queryParamMap.get('redirect') || '/home2';
         console.log('🔁 Redirection vers :', redirectPath);
 
         this.router.navigateByUrl(redirectPath);

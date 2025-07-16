@@ -4,17 +4,7 @@
 
   <!-- Barre de stats -->
   <div class="usage-cards">
-    <mat-card class="usage-card">
-      <h3>CPU</h3>
-      <mat-progress-bar mode="determinate" [value]="cpuUsage"></mat-progress-bar>
-      <p>{{ cpuUsage }}% utilisé</p>
-    </mat-card>
-
-    <mat-card class="usage-card">
-      <h3>RAM</h3>
-      <mat-progress-bar mode="determinate" [value]="ramUsage"></mat-progress-bar>
-      <p>{{ ramUsage }}% utilisé</p>
-    </mat-card>
+   
 
     <mat-card class="usage-card">
       <h3>Disque</h3>
@@ -23,28 +13,6 @@
     </mat-card>
   </div>
 
-  <!-- 3 cards suggestion / marketing -->
-  <div class="feature-cards">
-    <mat-card class="feature">
-      <h4>Besoin de + de ressources ?</h4>
-      <p>Débloquez plus de RAM et CPU avec l'offre premium.</p>
-      <button mat-stroked-button color="primary">Accéder à Premium</button>
-    </mat-card>
-
-    <mat-card class="feature">
-      <h4>Créer votre première VM</h4>
-      <p>Lancez une machine virtuelle en quelques clics.</p>
-      <button mat-flat-button color="accent" routerLink="/vm">Créer une VM</button>
-    </mat-card>
-
-    <mat-card class="feature">
-      <h4>Sauvegardes CephFS</h4>
-      <p>Organisez vos fichiers avec CephFS sécurisé.</p>
-      <button mat-button color="primary" routerLink="/cephfs">Découvrir</button>
-    </mat-card>
-  </div>
-
-</div>
 
 
     <div class="pricing-section">
