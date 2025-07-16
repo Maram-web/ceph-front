@@ -7,7 +7,6 @@ import { FormsModule } from '@angular/forms';
 // ✅ composants standalone à importer
 import { AlertsComponent } from './alerts/alerts.component';
 import { FormsComponent } from './forms/forms.component';
-import { GridListComponent } from './grid-list/grid-list.component';
 import { MenuComponent } from './menu/menu.component';
 import { TabsComponent } from './tabs/tabs.component';
 import { ExpansionComponent } from './expansion/expansion.component';
@@ -43,7 +42,6 @@ import { UploadComponent } from './upload/upload.component';
     // ✅ importer les composants standalone ici
     AlertsComponent,
     FormsComponent,
-    GridListComponent,
     MenuComponent,
     TabsComponent,
     ExpansionComponent,
@@ -56,7 +54,7 @@ import { UploadComponent } from './upload/upload.component';
     SlideToggleComponent,
     ButtonsComponent,
     TooltipsComponent,
-        MatCardModule,
+    MatCardModule,
     MatButtonModule
   
   ],
@@ -66,7 +64,6 @@ import { UploadComponent } from './upload/upload.component';
     // ✅ tu peux les réexporter si besoin
     AlertsComponent,
     FormsComponent,
-    GridListComponent,
     MenuComponent,
     TabsComponent,
     ExpansionComponent,

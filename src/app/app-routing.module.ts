@@ -5,7 +5,6 @@ import { ButtonsComponent } from './components/buttons/buttons.component';
 import { ChipsComponent } from './components/chips/chips.component';
 import { ExpansionComponent } from './components/expansion/expansion.component';
 import { FormsComponent } from './components/forms/forms.component';
-import { GridListComponent } from './components/grid-list/grid-list.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { ProgressSnipperComponent } from './components/progress-snipper/progress-snipper.component';
 import { ProgressComponent } from './components/progress/progress.component';
@@ -36,7 +35,6 @@ import { WelcomeComponent } from './pages/welcome/welcome.component';
 
 import { BlankLayoutComponent } from './layouts/blank-layout/blank-layout.component'; // ← Vérifie que ce chemin est correct
 import { Home2Component } from './home2/home2.component';
-import { CephfsComponent } from './components/cephfs/cephfs.component';
 import { ForumComponent } from './components/forum/forum.component';
 
 const routes: Routes = [
@@ -64,7 +62,6 @@ const routes: Routes = [
     path: '',
     component: FullComponent,
     children: [
-      { path: 'cephfs', component: CephfsComponent },
 
        { path: 'forum', component: ForumComponent },
 
@@ -73,7 +70,6 @@ const routes: Routes = [
       { path: 'alerts', component: AlertsComponent },
       { path: 'forms', component: FormsComponent },
       { path: 'table', component: ProductComponent },
-      { path: 'grid-list', component: GridListComponent },
       { path: 'menu', component: MenuComponent },
       { path: 'tabs', component: TabsComponent },
       { path: 'expansion', component: ExpansionComponent },
