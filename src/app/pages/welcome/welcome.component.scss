@@ -243,3 +243,112 @@ mat-toolbar,
   font-weight: 600;
   font-size: 14px;
 }
+.pricing-section {
+  padding: 60px 20px;
+
+  h2 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 15px;
+    color: #6b7280;
+  }
+
+  .pricing-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 32px;
+    margin-top: 40px;
+  }
+
+  .plan-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    max-width: 320px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+    }
+
+    .plan-image {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .plan-content {
+      padding: 20px;
+
+      .plan-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 6px;
+      }
+
+      .plan-description {
+        font-size: 14px;
+        color: #6b7280;
+        margin-bottom: 12px;
+      }
+
+      .plan-features {
+        list-style: none;
+        padding: 0;
+        font-size: 14px;
+        color: #374151;
+
+        li {
+          margin-bottom: 6px;
+        }
+      }
+
+      .plan-price {
+        margin-top: 16px;
+        font-size: 16px;
+        font-weight: 600;
+        color: #1f2937;
+      }
+
+      .plan-btn {
+        margin-top: 14px;
+        padding: 10px 24px;
+        border-radius: 24px;
+        font-weight: 600;
+        font-size: 14px;
+        width: 100%;
+        border: none;
+        color: white;
+        cursor: pointer;
+
+        &.primary {
+          background-color: #3b82f6;
+        }
+        &.accent {
+          background-color: #10b981;
+        }
+        &.warn {
+          background-color: #ef4444;
+        }
+
+        &:disabled {
+          background-color: #e5e7eb;
+          color: #9ca3af;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}

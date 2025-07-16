@@ -37,7 +37,10 @@ this.router.events.pipe(
     url === '/home' ||
     url === '/home2' ||
     url === '/vms'
-    || url == '/spaces' ;
+    || url == '/spaces' || url == '/forum'||url == '/ create-vm'
+
+
+   
 });
 
   }
@@ -53,4 +56,12 @@ this.router.events.pipe(
     this.currentUser = null;
     this.router.navigate(['/authentication/login']);
   }
+
+    scrollToFooter() {
+    const footer = document.getElementById('footer');
+    if (footer) {
+      footer.scrollIntoView({ behavior: 'smooth' });
+    }
+  
+}
 }

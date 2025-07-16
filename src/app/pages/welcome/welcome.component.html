@@ -43,9 +43,40 @@
 
 
 
+<!-- 🧾 Pricing Section -->
+<!-- 💳 Modern Pricing Section -->
+<!-- 💳 Modern Pricing Section -->
+<section class="pricing-section container">
+  <h2 class="text-center">Choose Your Plan</h2>
+  <p class="text-center text-muted mb-5">Flexible plans tailored for your cloud journey</p>
+
+  <div class="pricing-grid">
+    <div class="plan-card" *ngFor="let plan of plans">
+      <!-- ✅ Remove <img> -->
+      <div class="plan-content">
+        <h3 class="plan-title">{{ plan.title }}</h3>
+        <p class="plan-description">{{ plan.description }}</p>
+
+        <ul class="plan-features">
+          <li *ngFor="let feature of plan.features">✔️ {{ feature }}</li>
+        </ul>
+
+        <div class="plan-price">💰 {{ plan.price }} TND / month</div>
+
+        <button
+          class="plan-btn"
+          [ngClass]="plan.btnColor"
+          (click)="goToRegister(plan)"
+        >
+          {{ plan.button }}
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- Footer -->
-<footer class="footer">
+<footer class="footer"  id="footer">
     <div class="partners">
   <span>Partenaires :</span>
   <img src="assets/images/esprit-logo.png" alt="Esprit" class="partner-logo" />

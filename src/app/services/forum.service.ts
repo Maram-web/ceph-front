@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { HttpParams } from '@angular/common/http'; // ⬅️ assure-toi d'importer ceci
+
 export interface ForumPost {
   post: string;
   filename: string;
@@ -39,7 +41,20 @@ export class ForumService {
     return this.http.get<ForumPost[]>(`${this.apiUrl}/messages`, { headers });
   }
 
-  postComment(postFile: string, comment: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/comment`, { postFile, comment });
-  }
+postComment(postFile: string, comment: string): Observable<any> {
+  const token = localStorage.getItem('token') || '';
+  const headers = new HttpHeaders({
+    Authorization: `Bearer ${token}`
+  });
+
+  const params = new HttpParams()
+    .set('postFile', postFile)
+    .set('comment', comment);
+
+  return this.http.post(`${this.apiUrl}/comment`, null, {
+    headers,
+    params,
+    responseType: 'text'
+  });
+}
 }

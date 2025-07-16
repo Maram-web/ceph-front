@@ -13,6 +13,7 @@ import { RouterModule } from '@angular/router';
     RouterModule,
     MatTabsModule,
     MatIconModule,
+
     MatButtonModule
   ],
   exports: [WelcomeComponent]
