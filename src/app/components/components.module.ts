@@ -8,7 +8,6 @@ import { FormsModule } from '@angular/forms';
 import { AlertsComponent } from './alerts/alerts.component';
 import { FormsComponent } from './forms/forms.component';
 import { MenuComponent } from './menu/menu.component';
-import { TabsComponent } from './tabs/tabs.component';
 import { ExpansionComponent } from './expansion/expansion.component';
 import { ChipsComponent } from './chips/chips.component';
 import { ProgressComponent } from './progress/progress.component';
@@ -17,7 +16,6 @@ import { ProgressSnipperComponent } from './progress-snipper/progress-snipper.co
 import { SnackbarComponent } from './snackbar/snackbar.component';
 import { SliderComponent } from './slider/slider.component';
 import { SlideToggleComponent } from './slide-toggle/slide-toggle.component';
-import { ButtonsComponent } from './buttons/buttons.component';
 import { TooltipsComponent } from './tooltips/tooltips.component';
 
 
@@ -43,7 +41,6 @@ import { UploadComponent } from './upload/upload.component';
     AlertsComponent,
     FormsComponent,
     MenuComponent,
-    TabsComponent,
     ExpansionComponent,
     ChipsComponent,
     ProgressComponent,
@@ -52,7 +49,6 @@ import { UploadComponent } from './upload/upload.component';
     SnackbarComponent,
     SliderComponent,
     SlideToggleComponent,
-    ButtonsComponent,
     TooltipsComponent,
     MatCardModule,
     MatButtonModule
@@ -65,7 +61,6 @@ import { UploadComponent } from './upload/upload.component';
     AlertsComponent,
     FormsComponent,
     MenuComponent,
-    TabsComponent,
     ExpansionComponent,
     ChipsComponent,
     ProgressComponent,
@@ -74,7 +69,6 @@ import { UploadComponent } from './upload/upload.component';
     SnackbarComponent,
     SliderComponent,
     SlideToggleComponent,
-    ButtonsComponent,
     TooltipsComponent,
 
   ]

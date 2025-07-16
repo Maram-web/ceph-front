@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AlertsComponent } from './components/alerts/alerts.component';
-import { ButtonsComponent } from './components/buttons/buttons.component';
 import { ChipsComponent } from './components/chips/chips.component';
 import { ExpansionComponent } from './components/expansion/expansion.component';
 import { FormsComponent } from './components/forms/forms.component';
@@ -11,7 +10,6 @@ import { ProgressComponent } from './components/progress/progress.component';
 import { SlideToggleComponent } from './components/slide-toggle/slide-toggle.component';
 import { SliderComponent } from './components/slider/slider.component';
 import { SnackbarComponent } from './components/snackbar/snackbar.component';
-import { TabsComponent } from './components/tabs/tabs.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { TooltipsComponent } from './components/tooltips/tooltips.component';
 import { ProductComponent } from './dashboard/dashboard-components/product/product.component';
@@ -71,7 +69,6 @@ const routes: Routes = [
       { path: 'forms', component: FormsComponent },
       { path: 'table', component: ProductComponent },
       { path: 'menu', component: MenuComponent },
-      { path: 'tabs', component: TabsComponent },
       { path: 'expansion', component: ExpansionComponent },
       { path: 'chips', component: ChipsComponent },
       { path: 'progress', component: ProgressComponent },
@@ -81,7 +78,6 @@ const routes: Routes = [
       { path: 'slider', component: SliderComponent },
       { path: 'slide-toggle', component: SlideToggleComponent },
       { path: 'tooltip', component: TooltipsComponent },
-      { path: 'button', component: ButtonsComponent },
       { path: 'upload', component: UploadComponent },
       { path: 'storage', component: UserStorageComponent }, 
       { path: 'spaces', component: BucketManagerComponent },
